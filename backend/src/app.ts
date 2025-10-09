@@ -5,6 +5,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Endpoint /health pour vérifier que le serveur fonctionne
 app.get("/health", (_req, res) => {
     res.json({ status: "ok" });
 });
