@@ -1,5 +1,4 @@
 
-
 services:
   # Backend
   backend:
@@ -44,3 +43,4 @@ networks:
 
 volumes:
   postgres_data:
+
