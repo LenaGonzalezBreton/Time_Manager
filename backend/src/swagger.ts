@@ -1,7 +1,6 @@
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import { Express } from "express";
-import path from "path";
 
 export function buildSwaggerSpec() {
     // Détecter si on est en mode dev (fichiers .ts) ou prod (fichiers .js compilés)
@@ -9,7 +8,9 @@ export function buildSwaggerSpec() {
     const ext = isDev ? 'ts' : 'js';
     const baseDir = isDev ? './src' : './dist';
 
+    // Définir les options pour swaggerJSDoc
     const options: swaggerJSDoc.Options = {
+        // Informations générales sur l'API
         definition: {
             openapi: "3.0.3",
             info: {
@@ -38,7 +39,7 @@ export function buildSwaggerSpec() {
 
     return swaggerJSDoc(options);
 }
-
+// Configurer Swagger dans une application Express
 export function setupSwagger(app: Express) {
     const spec = buildSwaggerSpec();
     app.use("/docs", swaggerUi.serve, swaggerUi.setup(spec, { explorer: true }));

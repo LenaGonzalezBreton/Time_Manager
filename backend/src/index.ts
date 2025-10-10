@@ -1,12 +1,12 @@
 import { AppDataSource } from "./data-source";
 import app from "./app";
-
+// Définition du port d'écoute
 const port = Number(process.env.API_PORT) || 5000;
 
-// 1) Démarrer HTTP d'abord
+// Démarrage du serveur
 app.listen(port, () => console.log(`HTTP up on :${port}`));
 
-// 2) Essayer la DB en arrière-plan (sans bloquer)
+// Tentatives de connexion DB en arrière plan
 (async function connectWithRetry(maxRetries = 10, delay = 3000) {
     for (let i = 0; i < maxRetries; i++) {
         try {
