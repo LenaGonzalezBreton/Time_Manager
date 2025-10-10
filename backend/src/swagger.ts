@@ -25,10 +25,10 @@ export function buildSwaggerSpec() {
             tags: [
                 { name: "System", description: "Santé et diagnostics" },
                 { name: "Roles", description: "Rôles des utilisateurs" },
-                { name: "Users", description: "Gestion des utilisateurs" },
-                { name: "Teams", description: "Gestion des équipes" },
-                { name: "Clocks", description: "Arrivées/Départs" },
-                { name: "Reports", description: "Rapports & KPI" },
+                { name: "Utilisateurs", description: "Gestion des utilisateurs" },
+                { name: "Equipes", description: "Gestion des équipes" },
+                { name: "Horaire", description: "Arrivées/Départs" },
+                { name: "Indicateurs", description: "Rapports & KPI" },
             ],
         },
         // fichiers à scanner pour les annotations JSDoc OpenAPI
