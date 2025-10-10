@@ -24,6 +24,7 @@ export function buildSwaggerSpec() {
             ],
             tags: [
                 { name: "System", description: "Santé et diagnostics" },
+                { name: "Roles", description: "Rôles des utilisateurs" },
                 { name: "Users", description: "Gestion des utilisateurs" },
                 { name: "Teams", description: "Gestion des équipes" },
                 { name: "Clocks", description: "Arrivées/Départs" },
