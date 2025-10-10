@@ -18,4 +18,11 @@ app.use("/api", apiRouter);
 // Redirection pour swagger
 app.get("/", (_req, res) => res.redirect("/docs"));
 
+// Middleware d’erreurs pour renvoyer les status des services
+app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+    const status = err?.status ?? 500;
+    const message = err?.message ?? "Erreur serveur";
+    res.status(status).json({ message });
+});
+
 export default app;

@@ -1,8 +1,9 @@
+// backend/src/routes/roles.ts
 import { Router } from "express";
-import { getRoles, postRole } from "../controllers/roles.controller";
+import { getRoles, postRole, putRole, deleteRole } from "../controllers/roles.controller";
 
 const router = Router();
-// Information OpenAPI (Swagger) pour la documentation des API
+
 /**
  * @openapi
  * /api/roles:
@@ -13,9 +14,8 @@ const router = Router();
  *       200:
  *         description: OK
  */
-router.get("/", getRoles);  // Route pour obtenir la liste des rôles
+router.get("/", getRoles);
 
-// Information OpenAPI (Swagger) pour la documentation des API
 /**
  * @openapi
  * /api/roles:
@@ -28,14 +28,57 @@ router.get("/", getRoles);  // Route pour obtenir la liste des rôles
  *         application/json:
  *           schema:
  *             type: object
- *             required: [name]
+ *             required: [titre]
  *             properties:
- *               name: { type: string, example: "manager" }
- *               description: { type: string, example: "responsable d'équipe" }
+ *               titre: { type: string, example: "manager" }
  *     responses:
- *       201: { description: Role créé }
+ *       201: { description: Rôle créé }
  *       409: { description: Doublon }
  */
-router.post("/", postRole); // Route pour créer un nouveau rôle
+router.post("/", postRole);
+
+/**
+ * @openapi
+ * /api/roles/{id}:
+ *   put:
+ *     tags: [Roles]
+ *     summary: Met à jour un rôle
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: integer }
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               titre: { type: string, example: "lead" }
+ *               description: { type: string, example: "chef d'équipe" }
+ *     responses:
+ *       200: { description: Rôle mis à jour }
+ *       404: { description: Introuvable }
+ *       409: { description: Doublon }
+ */
+router.put("/:id", putRole);
+
+/**
+ * @openapi
+ * /api/roles/{id}:
+ *   delete:
+ *     tags: [Roles]
+ *     summary: Supprime un rôle
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: integer }
+ *     responses:
+ *       204: { description: Supprimé }
+ *       404: { description: Introuvable }
+ */
+router.delete("/:id", deleteRole);
 
 export default router;
