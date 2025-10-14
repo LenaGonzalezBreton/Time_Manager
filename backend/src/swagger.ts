@@ -27,7 +27,7 @@ export function buildSwaggerSpec() {
                 { name: "Roles", description: "Rôles des utilisateurs" },
                 { name: "Utilisateurs", description: "Gestion des utilisateurs" },
                 { name: "Equipes", description: "Gestion des équipes" },
-                { name: "Horaire", description: "Arrivées/Départs" },
+                { name: "Horaires", description: "Arrivées/Départs" },
                 { name: "Indicateurs", description: "Rapports & KPI" },
             ],
         },
