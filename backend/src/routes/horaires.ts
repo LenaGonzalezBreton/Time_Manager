@@ -4,6 +4,7 @@ import { getHoraires, postHoraire, putHoraire, deleteHoraire } from "../controll
 
 const router = Router();
 
+
 /**
  * @openapi
  * /api/horaires:

@@ -1,5 +1,13 @@
 import { Request, Response } from "express";
 import * as svc from "../services/horaires.service";
+import {listHorairesByUser} from "../services/horaires.service";
+
+// GET /users/{id}/clocks
+export async function getHorairesByUser(req: Request, res: Response) {
+    const id = Number(req.params.id);
+    const horaires = await svc.listHorairesByUser({ id_utilisateur: id });
+    res.status(200).json(horaires);
+}
 
 // GET /horaires
 export async function getHoraires(_req: Request, res: Response) {

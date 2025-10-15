@@ -1,6 +1,7 @@
 // backend/src/routes/roles.ts
 import { Router } from "express";
 import { getUtilisateurs, postUtilisateur, putUtilisateur, deleteUtilisateur } from "../controllers/utilisateurs.controller";
+import { getHorairesByUser } from "../controllers/horaires.controller";
 
 const router = Router();
 
@@ -103,5 +104,22 @@ router.put("/:id", putUtilisateur);
  *       404: { description: Introuvable }
  */
 router.delete("/:id", deleteUtilisateur);
+
+/**
+ * @openapi
+ * /api/utilisateurs/{id}/horaires:
+ *   get:
+ *     tags: [Horaires]
+ *     summary: Liste des horaires pour un utilisateur
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: integer }
+ *     responses:
+ *       200:
+ *         description: OK
+ */
+router.get("/:id/horaires", getHorairesByUser);
 
 export default router;

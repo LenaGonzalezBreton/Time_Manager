@@ -7,6 +7,20 @@ import {Not} from "typeorm";
 const repo = () => AppDataSource.getRepository(Horaire);
 const utilisateurRepo = () => AppDataSource.getRepository(Utilisateur);
 
+// Liste tous les horaires POUR un utilisateur
+export async function listHorairesByUser(data: { id_utilisateur: number }) {
+    return await repo().find({
+        relations: ["utilisateur"], // jointure avec l'entité Utilisateur
+        select: {
+            id_horaire: true,
+            type: true,
+            jour: true,
+            heure: true
+        },
+        where: { utilisateur: { id_utilisateur: data.id_utilisateur } } // filtre par id_utilisateur
+    });
+}
+
 // Liste tous les horaires avec l'id_utilisateur
 export async function listHoraires() {
     return await repo().find({
