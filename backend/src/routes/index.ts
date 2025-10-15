@@ -4,7 +4,7 @@ import rolesRouter from "./roles";
 import equipesRouter from "./equipes";
 import utilisateursRouter from "./utilisateurs";
 import horairesRouter from "./horaires";
-// import indicateursRouter from "./indicateurs";
+import indicateursRouter from "./indicateurs";
 
 const apiRouter = Router();
 
@@ -14,6 +14,6 @@ apiRouter.use("/roles", rolesRouter);
 apiRouter.use("/equipes", equipesRouter);
 apiRouter.use("/utilisateurs", utilisateursRouter);
 apiRouter.use("/horaires", horairesRouter);
-// apiRouter.use("/indicateurs", indicateursRouter);
+apiRouter.use("/indicateurs", indicateursRouter);
 
 export default apiRouter;

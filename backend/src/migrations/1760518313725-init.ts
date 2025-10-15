@@ -1,13 +1,13 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Init1759997677278 implements MigrationInterface {
-    name = 'Init1759997677278'
+export class Init1760518313725 implements MigrationInterface {
+    name = 'Init1760518313725'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "roles" ("id_role" SERIAL NOT NULL, "titre" character varying(50) NOT NULL, CONSTRAINT "UQ_727aff55ab1cd29ce3995fe5371" UNIQUE ("titre"), CONSTRAINT "PK_3ebdb96dd6787bda0e3c8f89d66" PRIMARY KEY ("id_role"))`);
         await queryRunner.query(`CREATE TABLE "equipes" ("id_equipe" SERIAL NOT NULL, "nom" character varying(50) NOT NULL, "description" character varying(500), CONSTRAINT "PK_603dbe0f7683f0497e08410f5e7" PRIMARY KEY ("id_equipe"))`);
         await queryRunner.query(`CREATE TABLE "horaires" ("id_horaire" SERIAL NOT NULL, "type" character varying(50) NOT NULL, "jour" date NOT NULL, "heure" TIME NOT NULL, "id_utilisateur" integer NOT NULL, CONSTRAINT "PK_aeabc6c8e3979516e71c4387612" PRIMARY KEY ("id_horaire"))`);
-        await queryRunner.query(`CREATE TABLE "indicateurs" ("id_indicateur" SERIAL NOT NULL, "taux_retard" numeric(5,2), "taux_presence" numeric(5,2), "heures_travaillees" numeric(5,2), "duree_retards" numeric(5,2), "id_utilisateur" integer NOT NULL, CONSTRAINT "PK_07cd05ba17d07c67415d545102f" PRIMARY KEY ("id_indicateur"))`);
+        await queryRunner.query(`CREATE TABLE "indicateurs" ("id_indicateur" SERIAL NOT NULL, "taux_retard" numeric(5,2), "taux_presence" numeric(5,2), "heures_travaillees" character varying(16), "duree_retards" character varying(16), "id_utilisateur" integer NOT NULL, CONSTRAINT "PK_07cd05ba17d07c67415d545102f" PRIMARY KEY ("id_indicateur"))`);
         await queryRunner.query(`CREATE TABLE "utilisateurs" ("id_utilisateur" SERIAL NOT NULL, "nom" character varying(50) NOT NULL, "prenom" character varying(50) NOT NULL, "email" character varying(100) NOT NULL, "telephone" character varying(15), "mot_de_passe" character varying(300) NOT NULL, "id_role" integer NOT NULL, CONSTRAINT "UQ_6b14325a486fe68d16aa889e4dc" UNIQUE ("email"), CONSTRAINT "PK_f97d7d520e86e39824860ec9f75" PRIMARY KEY ("id_utilisateur"))`);
         await queryRunner.query(`CREATE TABLE "appartenir" ("id_utilisateur" integer NOT NULL, "id_equipe" integer NOT NULL, CONSTRAINT "PK_5c08dd0ab73f0c5d7c10d2cc8e6" PRIMARY KEY ("id_utilisateur", "id_equipe"))`);
         await queryRunner.query(`CREATE INDEX "IDX_473d539b29f6dac680c9021dd3" ON "appartenir" ("id_utilisateur") `);

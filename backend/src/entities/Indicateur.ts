@@ -13,11 +13,11 @@ export class Indicateur {
     @Column({ type: "numeric", precision: 5, scale: 2, nullable: true })
     taux_presence!: number | null;
     // Heures travaillées (totale)
-    @Column({ type: "numeric", precision: 5, scale: 2, nullable: true })
-    heures_travaillees!: number | null;
+    @Column({ type: "varchar", length: 16, nullable: true })
+    heures_travaillees!: string | null;
     // Durée totale des retards
-    @Column({ type: "numeric", precision: 5, scale: 2, nullable: true })
-    duree_retards!: number | null;
+    @Column({ type: "varchar", length: 16, nullable: true })
+    duree_retards!: string | null;
     // Relation ManyToOne avec la table utilisateur
     @ManyToOne(() => Utilisateur, (u) => u.indicateurs, { nullable: false, onDelete: "CASCADE" })
     @JoinColumn({ name: "id_utilisateur" }) // Clé étrangère id de l'utilisateur
