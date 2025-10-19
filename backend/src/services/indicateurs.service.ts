@@ -1,49 +1,54 @@
 import { AppDataSource } from "../data-source";
 import { Indicateur } from "../entities/Indicateur";
-import {Utilisateur} from "../entities/Utilisateur";
-import {Not} from "typeorm";
+import { CibleIndicateur } from "../entities/Cible_Indicateur";
+import { Not } from "typeorm";
 
-// On utilise le repository de TypeORM pour interagir avec la base de données
+// Repositories
 const repo = () => AppDataSource.getRepository(Indicateur);
-const utilisateurRepo = () => AppDataSource.getRepository(Utilisateur);
+const cibleRepo = () => AppDataSource.getRepository(CibleIndicateur);
 
-// Liste tous les indicateurs avec l'id_utilisateur et l'id_equipe
+// Liste tous les indicateurs avec leur cible
 export async function listIndicateurs() {
     return await repo().find({
-        relations: ["utilisateur", "utilisateur.equipes"], // jointure avec équipes
-        select: {
-            id_indicateur: true,
-            taux_retard: true,
-            taux_presence: true,
-            heures_travaillees: true,
-            duree_retards: true,
-            utilisateur: {
-                id_utilisateur: true,
-                equipes: {
-                    id_equipe: true
-                }
-            }
-        }
+        relations: ["cible_indicateur"],
+        order: { date_periode: "DESC" }
     });
 }
 
+// Helper: récupérer ou créer une cible_indicateur
+async function getOrCreateCible(type_cible: "utilisateur" | "equipe", id_cible: number) {
+    let cible = await cibleRepo().findOne({ where: { type_cible, id_cible } });
+    if (!cible) {
+        cible = cibleRepo().create({ type_cible, id_cible });
+        cible = await cibleRepo().save(cible);
+    }
+    return cible;
+}
+
 // Créer un nouvel indicateur
-export async function createIndicateur(data: {id_utilisateur: number, taux_retard?: number, taux_presence?: number, heures_travaillees?: string, duree_retards?: string}) {
-    // Vérifie si l'utilisateur possède déjà un indicateur
-    const existing = await repo().findOneBy({ utilisateur: { id_utilisateur: data.id_utilisateur } });
-    if (existing) throw { status: 409, message: "Cet utilisateur possède déjà un indicateur" };
+export async function createIndicateur(data: {
+    type_cible: "utilisateur" | "equipe";
+    id_cible: number;
+    date_periode: string; // YYYY-MM-DD
+    taux_retard?: string | number | null;
+    taux_presence?: string | number | null;
+    minutes_travaillees?: number;
+    minutes_retards?: number;
+}) {
+    // Cible
+    const cible = await getOrCreateCible(data.type_cible, data.id_cible);
 
-    // Récupère l'utilisateur
-    const utilisateur = await utilisateurRepo().findOneBy({ id_utilisateur: data.id_utilisateur });
-    if (!utilisateur) throw { status: 400, message: "Utilisateur invalide" };
+    // Unicité cible + date_periode
+    const existing = await repo().findOne({ where: { cible_indicateur: { id_cible_indicateur: cible.id_cible_indicateur }, date_periode: data.date_periode }, relations: ["cible_indicateur"] });
+    if (existing) throw { status: 409, message: "Un indicateur existe déjà pour cette cible et cette période" };
 
-    // Crée l'indicateur
     const indicateur = repo().create({
-        taux_retard: data.taux_retard ?? null,
-        taux_presence: data.taux_presence ?? null,
-        heures_travaillees: data.heures_travaillees ?? null,
-        duree_retards: data.duree_retards ?? null,
-        utilisateur
+        date_periode: data.date_periode,
+        taux_retard: data.taux_retard != null ? String(data.taux_retard) : null,
+        taux_presence: data.taux_presence != null ? String(data.taux_presence) : null,
+        minutes_travaillees: data.minutes_travaillees ?? 0,
+        minutes_retards: data.minutes_retards ?? 0,
+        cible_indicateur: cible,
     });
     return await repo().save(indicateur);
 }
@@ -51,32 +56,47 @@ export async function createIndicateur(data: {id_utilisateur: number, taux_retar
 // Mettre à jour un indicateur
 export async function updateIndicateur(
     id_indicateur: number,
-    data: { taux_retard?: number; taux_presence?: number; heures_travaillees?: string; duree_retards?: string; id_utilisateur?: number }
+    data: Partial<{
+        type_cible: "utilisateur" | "equipe";
+        id_cible: number;
+        date_periode: string;
+        taux_retard: string | number | null;
+        taux_presence: string | number | null;
+        minutes_travaillees: number;
+        minutes_retards: number;
+    }>
 ) {
-    const indicateur = await repo().findOne({ where: { id_indicateur }, relations: ["utilisateur"] });
+    const indicateur = await repo().findOne({ where: { id_indicateur }, relations: ["cible_indicateur"] });
     if (!indicateur) throw { status: 404, message: "Indicateur introuvable" };
 
-    let utilisateur = indicateur.utilisateur;
-
-    // Si on change l'utilisateur lié, vérifier l'unicité
-    if (data.id_utilisateur && data.id_utilisateur !== indicateur.utilisateur.id_utilisateur) {
-        const user = await utilisateurRepo().findOneBy({ id_utilisateur: data.id_utilisateur });
-        if (!user) throw { status: 400, message: "Utilisateur invalide" };
-
-        const duplicate = await repo().findOne({
-            where: { utilisateur: { id_utilisateur: data.id_utilisateur }, id_indicateur: Not(id_indicateur) },
-            relations: ["utilisateur"],
-        });
-        if (duplicate) throw { status: 409, message: "Cet utilisateur possède déjà un indicateur" };
-
-        utilisateur = user;
+    // Gestion éventuel changement de cible
+    let cible = indicateur.cible_indicateur;
+    const wantsChangeCible = data.type_cible !== undefined || data.id_cible !== undefined;
+    if (wantsChangeCible) {
+        const type_cible = (data.type_cible ?? cible.type_cible) as "utilisateur" | "equipe";
+        const id_cible = data.id_cible ?? cible.id_cible;
+        cible = await getOrCreateCible(type_cible, id_cible);
     }
 
-    indicateur.taux_retard = data.taux_retard ?? indicateur.taux_retard;
-    indicateur.taux_presence = data.taux_presence ?? indicateur.taux_presence;
-    indicateur.heures_travaillees = data.heures_travaillees ?? indicateur.heures_travaillees;
-    indicateur.duree_retards = data.duree_retards ?? indicateur.duree_retards;
-    indicateur.utilisateur = utilisateur;
+    const newDate = data.date_periode ?? indicateur.date_periode;
+
+    // Unicité cible + date_periode (excluant l'enregistrement courant)
+    const duplicate = await repo().findOne({
+        where: {
+            date_periode: newDate,
+            cible_indicateur: { id_cible_indicateur: cible.id_cible_indicateur },
+            id_indicateur: Not(id_indicateur) as any,
+        } as any,
+        relations: ["cible_indicateur"],
+    });
+    if (duplicate) throw { status: 409, message: "Un indicateur existe déjà pour cette cible et cette période" };
+
+    indicateur.cible_indicateur = cible;
+    indicateur.date_periode = newDate;
+    if (data.taux_retard !== undefined) indicateur.taux_retard = data.taux_retard != null ? String(data.taux_retard) : null;
+    if (data.taux_presence !== undefined) indicateur.taux_presence = data.taux_presence != null ? String(data.taux_presence) : null;
+    if (data.minutes_travaillees !== undefined) indicateur.minutes_travaillees = data.minutes_travaillees;
+    if (data.minutes_retards !== undefined) indicateur.minutes_retards = data.minutes_retards;
 
     return await repo().save(indicateur);
 }

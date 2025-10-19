@@ -9,11 +9,14 @@ export async function listEquipes() {
 }
 
 // Créer une nouvelle équipe
-export async function createEquipe(data: { nom: string }) {
+export async function createEquipe(data: { nom: string; description?: string | null }) {
     const existing = await repo().findOneBy({ nom: data.nom }); // Verification si existe déjà
     if (existing) throw { status: 409, message: "Cette équipe existe déjà" };
 
-    const equipe = repo().create(data);
+    const equipe = repo().create({
+        nom: data.nom,
+        description: data.description ?? null,
+    });
     return await repo().save(equipe);
 }
 
@@ -31,7 +34,7 @@ export async function updateEquipe(id_equipe: number, data: Partial<Equipe>) {
     return await repo().save(merged);
 }
 
-// Supprimer un rôle
+// Supprimer une équipe
 export async function deleteEquipe(id: number) {
     const result = await repo().delete(id);
     if (!result.affected) throw { status: 404, message: "Équipe introuvable" };

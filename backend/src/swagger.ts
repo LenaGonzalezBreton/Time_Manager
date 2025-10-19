@@ -29,6 +29,12 @@ export function buildSwaggerSpec() {
                 { name: "Equipes", description: "Gestion des équipes" },
                 { name: "Horaires", description: "Arrivées/Départs" },
                 { name: "Indicateurs", description: "Rapports & KPI" },
+                { name: "Absences", description: "Gestion des absences" },
+                { name: "CiblesIndicateur", description: "Cibles pour les indicateurs (utilisateur/équipe)" },
+                { name: "JoursFeries", description: "Calendrier des jours fériés" },
+                { name: "Planning", description: "Planning hebdomadaire par rôle" },
+                { name: "TypesAbsence", description: "Catalogues des types d'absence" },
+                { name: "TypesHoraire", description: "Catalogues des types d'horaire" },
             ],
         },
         // fichiers à scanner pour les annotations JSDoc OpenAPI

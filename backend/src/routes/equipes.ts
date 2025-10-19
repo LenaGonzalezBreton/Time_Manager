@@ -28,13 +28,14 @@ router.get("/", getEquipes);
  *         application/json:
  *           schema:
  *             type: object
- *             required: [nom, description]
+ *             required: [nom]
  *             properties:
  *               nom:
  *                 type: string
  *                 example: "team qualité"
  *               description:
  *                 type: string
+ *                 nullable: true
  *                 example: "assurer la qualité des produits par des audits fréquents"
  *     responses:
  *       201:
@@ -63,7 +64,7 @@ router.post("/", postEquipe);
  *             type: object
  *             properties:
  *               nom: { type: string, example: "team qualité" }
- *               description: { type: string, example: "assurer la qualité des produits par des audits fréquents" }
+ *               description: { type: string, nullable: true, example: "assurer la qualité des produits par des audits fréquents" }
  *     responses:
  *       200: { description: Équipe mise à jour }
  *       404: { description: Introuvable }

@@ -5,6 +5,12 @@ import equipesRouter from "./equipes";
 import utilisateursRouter from "./utilisateurs";
 import horairesRouter from "./horaires";
 import indicateursRouter from "./indicateurs";
+import absencesRouter from "./absences";
+import ciblesIndicateurRouter from "./cibles_indicateur";
+import joursFeriesRouter from "./jours_feries";
+import planningsRouter from "./plannings";
+import typesAbsenceRouter from "./types_absence";
+import typesHoraireRouter from "./types_horaire";
 
 const apiRouter = Router();
 
@@ -15,5 +21,11 @@ apiRouter.use("/equipes", equipesRouter);
 apiRouter.use("/utilisateurs", utilisateursRouter);
 apiRouter.use("/horaires", horairesRouter);
 apiRouter.use("/indicateurs", indicateursRouter);
+apiRouter.use("/absences", absencesRouter);
+apiRouter.use("/cibles-indicateur", ciblesIndicateurRouter);
+apiRouter.use("/jours-feries", joursFeriesRouter);
+apiRouter.use("/plannings", planningsRouter);
+apiRouter.use("/types-absence", typesAbsenceRouter);
+apiRouter.use("/types-horaire", typesHoraireRouter);
 
 export default apiRouter;
