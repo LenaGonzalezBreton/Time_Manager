@@ -4,6 +4,9 @@ FROM node:18-alpine
 # Créer le répertoire de travail
 WORKDIR /app
 
+# Installer psql (client PostgreSQL) pour les imports de données
+RUN apk add --no-cache postgresql-client
+
 # Copier les fichiers de dépendances
 COPY package*.json ./
 

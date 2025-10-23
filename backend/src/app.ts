@@ -6,7 +6,8 @@ import apiRouter from "./routes";
 // Création de l'application Express
 const app = express();
 // Middleware
-app.use(cors({ origin: "http://localhost:3000" }));
+const allowedOrigin = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
+app.use(cors({ origin: allowedOrigin }));
 app.use(express.json());
 
 // Setup de swagger

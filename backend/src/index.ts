@@ -1,3 +1,8 @@
+import * as path from "path";
+import dotenv from "dotenv";
+// Charger le .env à la racine du repo
+dotenv.config({ path: path.resolve(__dirname, "..", "..", ".env") });
+
 import { AppDataSource } from "./data-source";
 import app from "./app";
 // Définition du port d'écoute
