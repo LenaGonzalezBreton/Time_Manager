@@ -7,8 +7,8 @@ const router = Router();
  * @openapi
  * /api/health:
  *   get:
- *     tags: [System]
- *     summary: Liveness & readiness
+ *     tags: [Système]
+ *     summary: Vérifie la santé et la disponibilité
  *     responses:
  *       200:
  *         description: Statut de l'API et de la base de données

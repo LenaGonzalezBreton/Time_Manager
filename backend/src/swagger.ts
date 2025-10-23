@@ -14,21 +14,22 @@ export function buildSwaggerSpec() {
         definition: {
             openapi: "3.0.3",
             info: {
-                title: "Time Manager API",
+                title: "API Time Manager",
                 version: "1.0.0",
                 description:
-                    "API REST (Express + TypeORM) pour Time Manager. Routes Users, Teams, Clocks, Reports, etc.",
+                    "API REST (Express + TypeORM) pour Time Manager. Routes Utilisateurs, Équipes, Horaires, Rapports, etc.",
             },
             servers: [
                 { url: `http://localhost:${process.env.API_PORT || 5000}`, description: "Local" },
             ],
             tags: [
-                { name: "System", description: "Santé et diagnostics" },
+                { name: "Système", description: "Santé et diagnostics" },
                 { name: "Roles", description: "Rôles des utilisateurs" },
                 { name: "Utilisateurs", description: "Gestion des utilisateurs" },
                 { name: "Equipes", description: "Gestion des équipes" },
                 { name: "Horaires", description: "Arrivées/Départs" },
-                { name: "Indicateurs", description: "Rapports & KPI" },
+                { name: "Indicateurs", description: "Indicateurs et KPI" },
+                { name: "Rapports", description: "Rapports et KPI" },
                 { name: "Absences", description: "Gestion des absences" },
                 { name: "CiblesIndicateur", description: "Cibles pour les indicateurs (utilisateur/équipe)" },
                 { name: "JoursFeries", description: "Calendrier des jours fériés" },

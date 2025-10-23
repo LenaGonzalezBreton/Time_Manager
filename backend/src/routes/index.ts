@@ -11,6 +11,7 @@ import joursFeriesRouter from "./jours_feries";
 import planningsRouter from "./plannings";
 import typesAbsenceRouter from "./types_absence";
 import typesHoraireRouter from "./types_horaire";
+import rapportsRouter from "./rapports";
 
 const apiRouter = Router();
 
@@ -27,5 +28,6 @@ apiRouter.use("/jours-feries", joursFeriesRouter);
 apiRouter.use("/plannings", planningsRouter);
 apiRouter.use("/types-absence", typesAbsenceRouter);
 apiRouter.use("/types-horaire", typesHoraireRouter);
+apiRouter.use("/rapports", rapportsRouter);
 
 export default apiRouter;
