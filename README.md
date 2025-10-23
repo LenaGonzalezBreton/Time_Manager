@@ -39,6 +39,34 @@ Application de gestion du temps permettant aux employés d’enregistrer leurs a
 
 ---
 
+## 🔐 Variables d’environnement: un seul `.env` à la racine
+
+Le projet utilise désormais un unique fichier `.env` à la racine du dépôt. Ce fichier est:
+- utilisé par Docker Compose pour alimenter les services,
+- chargé par le backend au démarrage (en dev),
+- non versionné (voir `.gitignore`).
+
+Exemple minimal de `./.env` (à créer manuellement; ne pas committer):
+
+```
+POSTGRES_USER=tm_user
+POSTGRES_PASSWORD=change_me
+POSTGRES_DB=time_manager
+API_PORT=5000
+TYPEORM_LOGGING=false
+FRONTEND_PORT=3000
+DATABASE_URL=postgres://tm_user:change_me@localhost:5432/time_manager
+```
+
+Notes:
+- En Docker, `docker-compose.yml` construit `DATABASE_URL` pour le backend et lui injecte via l’environnement.
+- Côté frontend (Create React App), exposez uniquement des variables publiques préfixées `REACT_APP_` si besoin (ex: `REACT_APP_API_URL=http://localhost:5000`). Ne placez aucun secret côté frontend.
+
+Si un ancien `.env` existait dans `backend/` ou des `.env.example` traînent encore localement, supprimez-les pour éviter toute confusion.
+
+
+---
+
 ## 🧩 Résumé
 
 | Composant | Technologie | Raison principale |
