@@ -1,13 +1,13 @@
 {/*import App from '../App.tsx'
 import Login from '../Components/Login.tsx'
+import TimerCardPause from '../Components/TimerCardPause.tsx'
+import TimerCardInProgress from '../Components/TimerCardInProgress.tsx'
 import SignIn from '../Components/SignIn.tsx'*/}
 import NavBar from "../Components/NavBar.tsx"
-import TimerCardInProgress from '../Components/TimerCardInProgress.tsx'
 import Collab from '../Components/Collab.tsx'
 import Teams from '../Components/Teams.tsx'
 import Stats from '../Components/Stats.tsx'
 import TimerCardDebut from '../Components/TimerCardDebut.tsx'
-import TimerCardPause from '../Components/TimerCardPause.tsx'
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
