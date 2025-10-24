@@ -12,7 +12,7 @@ const TimerCardDebut=() => {
             return () => clearInterval(timer);
         }, []);
     return(
-        <div className="flex flex-col gap-7  p-7 rounded-xl border-2 border-black">
+        <div className="flex flex-col gap-7 p-5 rounded-xl border-2 border-black">
             <div className="flex flex-col items-center" >
                 <p className ="text-gray-600 text-xl"> Vos horaires sont :</p>
                 <p className ="text-gray-600"> HH:MM début - HH:MM fin</p>

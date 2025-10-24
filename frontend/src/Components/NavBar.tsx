@@ -15,7 +15,7 @@ const NavBar = () => {
                         </a>
                         <a href="#" className="flex items-center gap-3 bg-blue-950 px-1 py-2 rounded-xl !text-white hover:bg-blue-600 active:scale-95 transition transform duration-150 ease-out">
                         <Handshake className= "text-blue-300 mr-1 ml-1 size-4"/>
-                        Équipes
+                        Équipe
                         </a>
                         <a href="#" className="flex items-center gap-3 bg-blue-950 px-1 py-2 rounded-xl !text-white hover:bg-blue-600 active:scale-95 transition transform duration-150 ease-out">
                         <Calendar className= "text-blue-300 mr-1 ml-1 size-4"/>
@@ -23,7 +23,7 @@ const NavBar = () => {
                         </a>
                         <a href="#" className="flex items-center gap-3 bg-blue-950 px-1 py-2 rounded-xl !text-white hover:bg-blue-600 active:scale-95 transition transform duration-150 ease-out">
                         <ChartColumn className= "text-blue-300 mr-1 ml-1 size-4"/>
-                        Statistiques
+                        Statistique
                         </a>
                     </nav>
                 </div>
