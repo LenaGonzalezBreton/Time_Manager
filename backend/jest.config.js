@@ -14,7 +14,7 @@ module.exports = {
     // Ignorer le dossier node_modules
     testPathIgnorePatterns: ['/node_modules/'],
     // Fichiers à exécuter avant les tests (pour initialisation)
-    setupFilesAfterEnv: [],
+    setupFilesAfterEnv: ['<rootDir>/src/tests/jest.setup.ts'],  // BDD
     // Configuration de ts-jest
     globals: {
         'ts-jest': {
