@@ -9,20 +9,20 @@ import Collab from '../Components/Collab.tsx'
 import Teams from '../Components/Teams.tsx'
 import Stats from '../Components/Stats.tsx'
 
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import {Menu, X} from "lucide-react";
+import {useState} from "react";
 
-export default function Dashboard_manager_DebutDeJournee(){
+export default function Dashboard_manager_DebutDeJournee() {
 
     const [open, setOpen] = useState(false);
-    return(
+    return (
         <div className="flex h-screen w-screen bg-gray-200 relative">
             {/* Bouton menu (mobile seulement) */}
             <button
                 onClick={() => setOpen(!open)}
                 className="absolute top-4 left-4 z-50 md:hidden "
             >
-                {open ? <X size={24} /> : <Menu size={24} />}
+                {open ? <X size={24}/> : <Menu size={24}/>}
             </button>
 
             {/* Overlay sombre (mobile uniquement quand menu ouvert) */}
@@ -35,19 +35,24 @@ export default function Dashboard_manager_DebutDeJournee(){
 
             {/* NAVBAR */}
             <div
-                className={`fixed static md:w-3/10  bg-gray-800 text-white transition-transform duration-300
-      ${open ? "translate-x-0" : "-translate-x-10/12"} md:translate-x-0`}
+                className={`
+        fixed top-0 left-0 h-full w-64  // largeur forcée pour mobile
+        bg-gray-800 text-white 
+        transition-transform duration-300 z-50
+        ${open ? "translate-x-0" : "-translate-x-full"}
+        md:static md:translate-x-0 md:w-3/10
+    `}
             >
-                <NavBar />
+                <NavBar/>
             </div>
 
             {/* CONTENU PRINCIPAL */}
-            <main className=" flex flex-col p-5 h-full w-full justify-between">
-                <label className="text-4xl font-bold text-blue-950 mt-2 ml-8 mb-6">
+            <main className=" flex flex-col p-5 h-full w-full overflow-y-auto">
+                <label className="text-4xl font-semibold text-blue-950 mt-2 ml-8 mb-6">
                     Bonjour Tom Scheffmann !
                 </label>
 
-                <div className="flex flex-row justify-center gap-50 rounded-xl mb-6">
+                <div className="flex md:flex-row flex-col items-center justify-center gap-6 md:gap-50 rounded-xl mb-6">
                     <TimerCardInProgress/>
                     <Stats/>
                 </div>

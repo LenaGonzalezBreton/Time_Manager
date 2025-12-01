@@ -11,19 +11,20 @@ import Retards from '../Components/Retards.tsx'
 import Absences from '../Components/Absences.tsx'
 
 
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import {Menu, X} from "lucide-react";
+import {useState} from "react";
 import MonEquipe from "../Components/MonEquipe.tsx";
 
-export default function Dashboard_employé(){const [open, setOpen] = useState(false);
-    return(
+export default function Dashboard_employé() {
+    const [open, setOpen] = useState(false);
+    return (
         <div className="flex h-screen w-screen bg-gray-200 relative">
             {/* Bouton menu (mobile seulement) */}
             <button
                 onClick={() => setOpen(!open)}
                 className="absolute top-4 left-4 z-50 md:hidden "
             >
-                {open ? <X size={24} /> : <Menu size={24} />}
+                {open ? <X size={24}/> : <Menu size={24}/>}
             </button>
 
             {/* Overlay sombre (mobile uniquement quand menu ouvert) */}
@@ -36,24 +37,29 @@ export default function Dashboard_employé(){const [open, setOpen] = useState(fa
 
             {/* NAVBAR */}
             <div
-                className={`fixed static md:w-3/10  bg-gray-800 text-white transition-transform duration-300
-      ${open ? "translate-x-0" : "-translate-x-10/12"} md:translate-x-0`}
+                className={`
+        fixed top-0 left-0 h-full w-64  // largeur forcée pour mobile
+        bg-gray-800 text-white 
+        transition-transform duration-300 z-50
+        ${open ? "translate-x-0" : "-translate-x-full"}
+        md:static md:translate-x-0 md:w-3/10
+    `}
             >
-                <NavBar />
+                <NavBar/>
             </div>
 
             {/* CONTENU PRINCIPAL */}
-            <main className="flex flex-col p-5 h-screen w-full overflow-y-auto justify-between">
-                <label className="text-3xl font-bold text-blue-950 mt-2 ml-8">
+            <main className="flex flex-col p-5 gap-6 h-screen w-full overflow-y-auto justify-between">
+                <label className="text-3xl font-semibold text-blue-950 mt-2 items-center">
                     Bonjour Tom Scheffmann !
                 </label>
 
-                <div className="flex flex-row justify-center gap-10 rounded-xl">
+                <div className="flex flex-col md:flex-row items-center md:justify-center gap-10 rounded-xl">
                     <TimerCardDebut/>
                     <Stats/>
                 </div>
 
-                <div className="flex flex-row gap-20 rounded-xl justify-center">
+                <div className="flex flex-col items-center md:flex-row md:gap-20 gap-6 rounded-xl justify-center">
                     <Retards/>
                     <Absences/>
                     <MonEquipe/>
