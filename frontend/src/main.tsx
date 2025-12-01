@@ -2,8 +2,8 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import Login from './Components/Login.tsx'
-import SignIn from './Components/SignIn.tsx'
+import Login from './Pages/Login.tsx'
+import SignIn from './Pages/SignIn.tsx'
 import NavBar from './Components/NavBar.tsx'
 import TimerCardInProgress from './Components/TimerCardInProgress.tsx'
 import Collab from './Components/Collab.tsx'
@@ -18,9 +18,13 @@ import Retards from "./Components/Retards.tsx";
 import Dashboard_employé from "./Pages/Dashboard_employé.tsx";
 import MonEquipe from "./Components/MonEquipe.tsx";
 import Equipe from "./Pages/Equipe.tsx"
+import Dashboard_manager_journee from "./Pages/Dashboard_Manager.tsx";
+import Card_employe from "./Components/Card_employé.tsx";
+import Card_manager from "./Components/Card_manager.tsx";
+import Dashboard_manager from "./Pages/Dashboard_Manager.tsx";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Equipe/>
+    <Dashboard_employé/>
   </StrictMode>
 )

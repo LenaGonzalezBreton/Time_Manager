@@ -16,11 +16,11 @@ export default function Dashboard_manager_DebutDeJournee(){
 
     const [open, setOpen] = useState(false);
     return(
-        <div className="flex min-h-screen bg-gray-200 relative">
+        <div className="flex h-screen w-screen bg-gray-200 relative">
             {/* Bouton menu (mobile seulement) */}
             <button
                 onClick={() => setOpen(!open)}
-                className="absolute top-4 left-4 z-50 md:hidden"
+                className="absolute top-4 left-4 z-50 md:hidden "
             >
                 {open ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -35,26 +35,26 @@ export default function Dashboard_manager_DebutDeJournee(){
 
             {/* NAVBAR */}
             <div
-                className={`fixed md:static left-0 w-2/5 md:w-1/4 bg-gray-800 text-white z-50 transition-transform duration-300
+                className={`fixed static md:w-3/10  bg-gray-800 text-white transition-transform duration-300
       ${open ? "translate-x-0" : "-translate-x-10/12"} md:translate-x-0`}
             >
                 <NavBar />
             </div>
 
             {/* CONTENU PRINCIPAL */}
-            <main className=" flex flex-col p-5 h-screen overflow-y-auto justify-between">
-                <label className="text-3xl font-bold text-blue-950 mt-2 ml-8 mb-6">
+            <main className=" flex flex-col p-5 h-full w-full justify-between">
+                <label className="text-4xl font-bold text-blue-950 mt-2 ml-8 mb-6">
                     Bonjour Tom Scheffmann !
                 </label>
 
-                <div className="flex flex-row justify-between gap-3 rounded-xl mb-6">
+                <div className="flex flex-row justify-center gap-50 rounded-xl mb-6">
                     <TimerCardInProgress/>
                     <Stats/>
                 </div>
 
-                <div className="flex flex-col gap-6 mb-5 rounded-xl">
-                    <Collab />
-                    <Teams />
+                <div className="flex flex-col items-center rounded-xl gap-6 ">
+                    <Collab/>
+                    <Teams/>
                 </div>
             </main>
         </div>
