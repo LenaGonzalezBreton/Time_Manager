@@ -13,7 +13,7 @@ const TimerCardPause = () => {
         return () => clearInterval(timer);
     }, []);
     return (
-        <div className="flex flex-col gap-7 p-5 rounded-xl border-2 border-black h-full w-2/3 md:w-1/3">
+        <div className="flex flex-col gap-7 p-5 rounded-xl border-2 border-black h-full mt-4 w-2/3 md:w-1/3">
             <div className="flex flex-col items-center">
                 <p className="text-gray-600 text-xl w-8/10"> Vos horaires sont :</p>
                 <p className="text-gray-600 w-8/10"> HH:MM début - HH:MM fin</p>
@@ -23,8 +23,8 @@ const TimerCardPause = () => {
             </div>
             <div className="flex flexrow justify-center">
                 <button
-                    className=" w-2/3 !bg-blue-950 hover:!bg-blue-600 justify-center active:scale-95 transition transform duration-150 ease-out"> Fin
-                    de pause
+                    className=" w-2/3 !bg-blue-950 hover:!bg-blue-600 justify-center active:scale-95 transition transform duration-150 ease-out">
+                    Fin de pause
                 </button>
 
             </div>

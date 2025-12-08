@@ -25,6 +25,6 @@ import Dashboard_manager from "./Pages/Dashboard_Manager.tsx";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <Dashboard_employé/>
+        <Dashboard_manager/>
     </StrictMode>
 )
