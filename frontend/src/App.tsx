@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import AppRouter from './AppRouter'
 
+// Composant principal de l'application - il englobe tout
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      {/*
+        Ajouter ici des composants globaux comme :
+        - <NavBar /> en haut
+        - <Footer /> en bas
+        - <AuthProvider> pour le contexte d'authentification
+      */}
+
+      {/* Système de routing - gère toutes les routes de l'application */}
+      <AppRouter />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
