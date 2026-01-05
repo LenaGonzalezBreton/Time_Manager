@@ -25,5 +25,8 @@ app.use((err: any, _req: express.Request, res: express.Response, _next: express.
     const message = err?.message ?? "Erreur serveur";
     res.status(status).json({ message });
 });
-
+app.post("/echo", (req, res) => {
+    res.status(201).json({ received: req.body });
+});
+app.use((_req, res) => res.status(404).json({ error: "Not Found" }));
 export default app;

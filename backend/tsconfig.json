@@ -6,12 +6,17 @@
     "outDir": "./dist",
 
     // Environment Settings
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "target": "ES2020",
+    // Choix de "NodeNext" pour s'aligner avec "type": "module" du package.json (sprint2)
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ESNext",
+    
+    // Fusion des types nécessaires (Jest + Supertest)
     "types": ["node", "cors", "jest", "@types/supertest"],
+    
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    // Note: "allowImportingTsExtensions" retiré pour permettre la génération des fichiers dans /dist
 
     // Other Outputs
     "sourceMap": true,
@@ -22,14 +27,19 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
 
-    // Decorators
+    // Decorators (CRUCIAL pour TypeORM)
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
 
     // Recommended Options
     "strict": true,
+    "verbatimModuleSyntax": false,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "auto",
     "skipLibCheck": true
   },
-  "include": ["src"],
+  // Fusion des inclusions et exclusions
+  "include": ["src/**/*", "tests/**/*"],
   "exclude": ["node_modules", "dist"]
 }

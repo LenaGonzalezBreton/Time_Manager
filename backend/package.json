@@ -1,13 +1,14 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest --verbose --runInBand",
-    "test:watch": "jest --watch --verbose",
     "dev": "nodemon --watch src --ext ts,js --exec ts-node src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
+    "test": "jest --config jest.config.cjs --runInBand --coverage",
+    "test:watch": "jest --watch --verbose",
     "typeorm:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d src/data-source.ts",
     "typeorm:gen": "ts-node ./node_modules/typeorm/cli.js migration:generate -d src/data-source.ts",
     "typeorm:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert -d src/data-source.ts",
