@@ -15,7 +15,7 @@ export async function listIndicateurs() {
     });
 }
 
-// Helper: récupérer ou créer une cible_indicateur
+// récupérer ou créer une cible_indicateur
 async function getOrCreateCible(type_cible: "utilisateur" | "equipe", id_cible: number) {
     let cible = await cibleRepo().findOne({ where: { type_cible, id_cible } });
     if (!cible) {
@@ -27,16 +27,29 @@ async function getOrCreateCible(type_cible: "utilisateur" | "equipe", id_cible: 
 
 // Créer un nouvel indicateur
 export async function createIndicateur(data: {
-    type_cible: "utilisateur" | "equipe";
-    id_cible: number;
+    id_cible_indicateur?: number;
+    type_cible?: "utilisateur" | "equipe";
+    id_cible?: number;
     date_periode: string; // YYYY-MM-DD
     taux_retard?: string | number | null;
     taux_presence?: string | number | null;
     minutes_travaillees?: number;
     minutes_retards?: number;
 }) {
-    // Cible
-    const cible = await getOrCreateCible(data.type_cible, data.id_cible);
+    // Cible: accepter soit id_cible_indicateur, soit type_cible + id_cible
+    let cible: CibleIndicateur;
+
+    if (data.id_cible_indicateur) {
+        // Utiliser l'ID de cible existant
+        const existingCible = await cibleRepo().findOne({ where: { id_cible_indicateur: data.id_cible_indicateur } });
+        if (!existingCible) throw { status: 400, message: "Cible d'indicateur introuvable" };
+        cible = existingCible;
+    } else if (data.type_cible && data.id_cible !== undefined) {
+        // Créer ou récupérer la cible
+        cible = await getOrCreateCible(data.type_cible, data.id_cible);
+    } else {
+        throw { status: 400, message: "Il faut fournir soit id_cible_indicateur, soit type_cible et id_cible" };
+    }
 
     // Unicité cible + date_periode
     const existing = await repo().findOne({ where: { cible_indicateur: { id_cible_indicateur: cible.id_cible_indicateur }, date_periode: data.date_periode }, relations: ["cible_indicateur"] });

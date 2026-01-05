@@ -158,12 +158,12 @@ INSERT INTO indicateurs (
   taux_presence,
   minutes_travaillees,
   minutes_retards,
-  "cibleIndicateurIdCibleIndicateur"
+  "id_cible_indicateur"
 )
 SELECT
   p.date_periode,
-  ROUND(LEAST(0.99, p.minutes_retards / 60.0)::numeric, 2) AS taux_retard,
-  ROUND(LEAST(0.99, p.minutes_travaillees / 480.0)::numeric, 2) AS taux_presence,
+  ROUND((p.minutes_retards / 60.0)::numeric, 2) AS taux_retard,
+  ROUND((p.minutes_travaillees / 480.0)::numeric, 2) AS taux_presence,
   p.minutes_travaillees,
   p.minutes_retards,
   ut.id_cible_indicateur
@@ -185,8 +185,8 @@ per_team_day AS (
          p.date_periode,
          SUM(p.minutes_travaillees) AS minutes_travaillees,
          SUM(p.minutes_retards) AS minutes_retards,
-         ROUND(AVG(LEAST(0.99, p.minutes_travaillees / 480.0))::numeric, 2) AS taux_presence,
-         ROUND(AVG(LEAST(0.99, p.minutes_retards / 60.0))::numeric, 2) AS taux_retard
+         ROUND(AVG(p.minutes_travaillees / 480.0)::numeric, 2) AS taux_presence,
+         ROUND(AVG(p.minutes_retards / 60.0)::numeric, 2) AS taux_retard
   FROM per_user_day p
   JOIN appartenir a ON a.id_utilisateur = p.user_id
   GROUP BY a.id_equipe, p.date_periode
@@ -200,7 +200,7 @@ INSERT INTO indicateurs (
   taux_presence,
   minutes_travaillees,
   minutes_retards,
-  "cibleIndicateurIdCibleIndicateur"
+  "id_cible_indicateur"
 )
 SELECT p.date_periode,
        p.taux_retard,

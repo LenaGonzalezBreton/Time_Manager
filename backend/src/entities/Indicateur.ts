@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Index, Unique } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Index, Unique } from "typeorm";
 import { CibleIndicateur } from "./Cible_Indicateur";
 
 // Entité représentant la table indicateurs
@@ -15,11 +15,11 @@ export class Indicateur {
     // Date de la période
     @Column({ type: "date" })
     date_periode!: string;
-    // Taux de présence (nullable, précision 2,2)
-    @Column({ type: "numeric", precision: 2, scale: 2, nullable: true })
+    // Taux de retard (nullable, précision 5,2 pour permettre des valeurs jusqu'à 999.99)
+    @Column({ type: "numeric", precision: 5, scale: 2, nullable: true })
     taux_retard!: string | null;
     // Taux de présence (pareil)
-    @Column({ type: "numeric", precision: 2, scale: 2, nullable: true })
+    @Column({ type: "numeric", precision: 5, scale: 2, nullable: true })
     taux_presence!: string | null;
     // Temps travaillé en minute
     @Column({ type: "int", default: 0 })
@@ -32,5 +32,6 @@ export class Indicateur {
     date_generation!: Date;
     // Cible de l'indicateur
     @ManyToOne(() => CibleIndicateur, c => c.indicateurs, { nullable: false, onDelete: "CASCADE", onUpdate: "CASCADE" })
+    @JoinColumn({ name: "id_cible_indicateur" })
     cible_indicateur!: CibleIndicateur;
 }
