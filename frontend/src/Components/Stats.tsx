@@ -1,9 +1,10 @@
-const Stats =() =>{
-    return(
-        <div className="bg-gray-200 flex flex-col justify-between p-4 rounded-xl mr-4 ml-4 border-black border-2">
+const Stats = () => {
+    return (
+        <div
+            className="bg-gray-200 flex flex-col justify-between md:w-1/3 w-2/3  rounded-xl border-black border-2">
             <p className="text-blue-950 text-xl font-bold mt-2"> Statistiques </p>
-            <div className="flex flex-row gap-3 h-2/3">
-                <img className="w-60 h-40 rounded-xl bg-white border-2 border-gray-500" />
+            <div className="p-3">
+                <img className="w-full rounded-xl bg-white border-2 p-15 border-gray-500"/>
             </div>
 
         </div>

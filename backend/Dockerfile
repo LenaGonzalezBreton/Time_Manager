@@ -28,5 +28,3 @@ RUN chmod +x /app/start.sh
 
 # Lancer le script de démarrage pour aussi migrer la base de données
 CMD ["/app/start.sh"]
-# Lancer le serveur
-CMD ["npm", "start"]
