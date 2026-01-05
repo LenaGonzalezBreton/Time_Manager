@@ -18,6 +18,12 @@ export class CibleIndicateur {
     // ID de la cible, référence logique vers utilisateurs.id_utilisateur ou equipes.id_equipe
     @Column({ type: "int" })
     id_cible!: number; // référence logique vers utilisateurs.id_utilisateur ou equipes.id_equipe
+    // Objectif de présence en pourcentage
+    @Column({ type: "decimal", precision: 5, scale: 2, nullable: true })
+    objectif_presence?: number;
+    // Objectif de retard en pourcentage
+    @Column({ type: "decimal", precision: 5, scale: 2, nullable: true })
+    objectif_retard?: number;
     // Relation OneToMany avec l'entité Indicateur
     @OneToMany(() => Indicateur, i => i.cible_indicateur)
     indicateurs!: Indicateur[];
