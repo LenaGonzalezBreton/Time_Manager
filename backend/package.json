@@ -1,35 +1,49 @@
 {
-    "name": "backend",
-    "version": "1.0.0",
-    "type": "module",
-    "main": "dist/index.js",
-    "scripts": {
-        "dev": "nodemon --watch src --ext ts,js --exec ts-node src/index.ts",
-        "test": "jest --config jest.config.cjs --runInBand --coverage",
-        "build": "tsc",
-        "start": "node dist/index.js"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "description": "",
-    "dependencies": {
-        "cors": "^2.8.5",
-        "dotenv": "^17.2.3",
-        "express": "^5.1.0",
-        "pg": "^8.16.3"
-    },
-    "devDependencies": {
-        "@types/cors": "^2.8.13",
-        "@types/express": "^5.0.3",
-        "@types/jest": "^30.0.0",
-        "@types/node": "^24.7.0",
-        "@types/supertest": "^6.0.3",
-        "jest": "^30.2.0",
-        "nodemon": "^3.1.10",
-        "supertest": "^7.1.4",
-        "ts-jest": "^29.4.5",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.9.3"
-    }
+  "name": "backend",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon --watch src --ext ts,js --exec ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "jest --config jest.config.cjs --runInBand --coverage",
+    "test:watch": "jest --watch --verbose",
+    "typeorm:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d src/data-source.ts",
+    "typeorm:gen": "ts-node ./node_modules/typeorm/cli.js migration:generate -d src/data-source.ts",
+    "typeorm:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert -d src/data-source.ts",
+    "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -d src/data-source.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "morgan": "^1.10.1",
+    "pg": "^8.16.3",
+    "reflect-metadata": "^0.2.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "typeorm": "^0.3.27"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.1",
+    "@types/supertest": "^6.0.3",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.5",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
 }

@@ -1,12 +1,29 @@
 import express from "express";
 import cors from "cors";
+import { setupSwagger } from "./swagger";
+import apiRouter from "./routes";
 
+// Création de l'application Express
 const app = express();
-app.use(cors());
+// Middleware
+const allowedOrigin = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
+app.use(cors({ origin: allowedOrigin }));
 app.use(express.json());
 
-app.get("/health", (_req, res) => {
-    res.json({ status: "ok" });
+// Setup de swagger
+setupSwagger(app);
+
+// Routeur principal de l'API
+app.use("/api", apiRouter);
+
+// Redirection pour swagger
+app.get("/", (_req, res) => res.redirect("/docs"));
+
+// Middleware d’erreurs pour renvoyer les status des services
+app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+    const status = err?.status ?? 500;
+    const message = err?.message ?? "Erreur serveur";
+    res.status(status).json({ message });
 });
 app.post("/echo", (req, res) => {
     res.status(201).json({ received: req.body });
