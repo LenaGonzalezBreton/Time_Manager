@@ -1,7 +1,6 @@
 import axios from 'axios';
 import type {AxiosInstance} from 'axios';
 import {API_CONFIG} from '../config/api.config';
-
 // Création d'une instance axios avec la configuration de base
 const apiClient: AxiosInstance = axios.create({
     baseURL: API_CONFIG.baseURL,
@@ -39,4 +38,3 @@ class ApiService {
 }
 
 export default new ApiService();
-
