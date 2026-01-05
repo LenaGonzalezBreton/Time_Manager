@@ -1,4 +1,6 @@
 # Use the latest LTS version of Node.js
+FROM node:20-alpine
+
 FROM node:18-alpine
  
 # Set the working directory inside the container
@@ -17,4 +19,4 @@ COPY . .
 EXPOSE 3000
  
 # Define the command to run your app
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3000"]
