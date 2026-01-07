@@ -1,69 +1,128 @@
+# Version du format docker-compose utilisée
 version: "3.8"
 
 services:
+
+  # ----- SERVICE BACKEND -----
   backend:
+    # Construction de l'image à partir du dossier backend
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
+
+    # Variables d'environnement du backend
     environment:
       - DATABASE_URL=postgresql://user:password@db:5432/time_manager
       - NODE_ENV=production
+      - NODE_ENV=production
+
+    # Le backend attend que la base de données soit démarrée
     depends_on:
       - db
+
+    # Réseau interne utilisé par l'application
     networks:
       - app-network
+
+    # Configuration Traefik pour exposer le backend
     labels:
       - "traefik.enable=true"
+      # Règle de routage : URL publique de l’API
       - "traefik.http.routers.backend.rule=Host(`api.time-manager.com`)"
+      # Port interne du conteneur backend
       - "traefik.http.services.backend.loadbalancer.server.port=5000"
 
+
+  # ----- SERVICE FRONTEND -----
   frontend:
+    # Construction de l'image frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
+
+    # Le frontend dépend du backend
     depends_on:
       - backend
+
+    # Même réseau que le backend
     networks:
       - app-network
+
+    # Labels Traefik pour exposer le site web
     labels:
       - "traefik.enable=true"
+      # Nom de domaine public du frontend
       - "traefik.http.routers.frontend.rule=Host(`time-manager.com`)"
+      # Port interne du serveur web frontend
       - "traefik.http.services.frontend.loadbalancer.server.port=80"
 
+
+  # ----- SERVICE BASE DE DONNÉES -----
   db:
+    # Image officielle PostgreSQL version 15
     image: postgres:15
+
+    # Redémarrage automatique en cas de crash
     restart: always
+
+    # Configuration de PostgreSQL
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: time_manager
+
+    # Volume pour persister les données
     volumes:
       - db_data:/var/lib/postgresql/data
+
+    # Réseau utilisé par la base de données
     networks:
       - app-network
 
+
+  # ----- SERVICE TRAEFIK (Reverse Proxy) -----
   traefik:
+    # Image Traefik version 3
     image: traefik:v3.0
+
+    # Commandes de configuration Traefik
     command:
+      # Activer le provider Docker
       - "--providers.docker=true"
+      # Définition des points d'entrée HTTP et HTTPS
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
+      # Configuration Let's Encrypt
       - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
       - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
       - "--certificatesresolvers.myresolver.acme.email=admin@time-manager.com"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+
+    # Ports exposés sur la machine hôte
     ports:
       - "80:80"
       - "443:443"
+
+    # Volumes nécessaires à Traefik
     volumes:
+      # Accès au socket Docker pour détecter les conteneurs
       - /var/run/docker.sock:/var/run/docker.sock
+      # Stockage des certificats SSL
       - ./letsencrypt:/letsencrypt
+
+    # Réseau utilisé par Traefik
     networks:
       - app-network
 
+
+# ----- VOLUMES -----
 volumes:
+  # Volume pour les données PostgreSQL
   db_data:
 
+# ----- RÉSEAUX -----
 networks:
+  # Réseau bridge pour faire communiquer tous les services
   app-network:
     driver: bridge
+
