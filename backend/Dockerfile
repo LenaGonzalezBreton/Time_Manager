@@ -1,16 +1,18 @@
 # backend/Dockerfile
-FROM node:18-alpine
+# Utiliser une image Node.js officielle
+FROM node:20-alpine
 
 # Créer le répertoire de travail
 WORKDIR /app
 
 # Installer psql (client PostgreSQL) pour les imports de données
-RUN apk add --no-cache postgresql-client
+RUN apk add --no-cache postgresql-client python3 make g++
 
 # Copier les fichiers de dépendances
 COPY package*.json ./
 
-# Installer les dépendances
+# Installer les dépendances avec build from source pour bcrypt
+ENV npm_config_build_from_source=true
 RUN npm install
 
 # Copier le reste du code

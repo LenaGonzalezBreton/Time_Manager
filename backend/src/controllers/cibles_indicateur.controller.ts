@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as svc from "../services/cibles_indicateur.service";
+import * as svc from "../services/cibles_indicateur.service.js";
 
 // GET /cibles-indicateur
 export async function getCiblesIndicateur(_req: Request, res: Response) {

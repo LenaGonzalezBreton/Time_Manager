@@ -22,8 +22,19 @@ export function buildSwaggerSpec() {
             servers: [
                 { url: `http://localhost:${process.env.API_PORT || 5000}`, description: "Local" },
             ],
+            components: {
+                securitySchemes: {
+                    bearerAuth: {
+                        type: "http",
+                        scheme: "bearer",
+                        bearerFormat: "JWT",
+                        description: "Entrez votre token JWT (sans 'Bearer')"
+                    }
+                }
+            },
             tags: [
                 { name: "Système", description: "Santé et diagnostics" },
+                { name: "Authentication", description: "Authentification et gestion des utilisateurs" },
                 { name: "Rapports", description: "Rapports et KPI" },
                 { name: "Roles", description: "Rôles des utilisateurs" },
                 { name: "Utilisateurs", description: "Gestion des utilisateurs" },

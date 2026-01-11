@@ -1,6 +1,6 @@
 // backend/src/routes/horaires.ts
 import { Router } from "express";
-import { getHoraires, postHoraire, putHoraire, deleteHoraire } from "../controllers/horaires.controller";
+import { getHoraires, postHoraire, putHoraire, deleteHoraire } from "../controllers/horaires.controller.js";
 
 const router = Router();
 

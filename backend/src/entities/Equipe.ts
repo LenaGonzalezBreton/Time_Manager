@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, Unique } from "typeorm";
-import { Utilisateur } from "./Utilisateur";
+import type { Utilisateur } from "./Utilisateur.js";
 // Entité représentant la table équipe
 @Entity("equipes")
 @Unique(["nom"]) // Unicité du nom d'équipe
@@ -14,6 +14,6 @@ export class Equipe {
     @Column({ type: "varchar", length: 500, nullable: true })
     description!: string | null;
     // Relation ManyToMany avec l'entité Utilisateur
-    @ManyToMany(() => Utilisateur, (u) => u.equipe)
+    @ManyToMany("Utilisateur", "equipe")
     membres!: Utilisateur[];
 }

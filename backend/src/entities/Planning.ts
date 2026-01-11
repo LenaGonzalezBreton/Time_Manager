@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Check } from "typeorm";
-import { Role } from "./Role";
+import type { Role } from "./Role.js";
 
 // Entité représentant la table Planning
 @Entity({ name: "planning" })
@@ -12,7 +12,7 @@ export class Planning {
     id_planning!: number;
     // Jour de la semaine
     @Column({ type: "varchar", length: 10 })
-    jour_semaine!: "Lundi"|"Mardi"|"Mercredi"|"Jeudi"|"Vendredi"|"Samedi"|"Dimanche";
+    jour_semaine!: "Lundi" | "Mardi" | "Mercredi" | "Jeudi" | "Vendredi" | "Samedi" | "Dimanche";
     // Heures d'arrivée, de pause et de départ (peuvent être nulles)
     @Column({ type: "time", nullable: true }) heure_arrivee!: string | null;
     @Column({ type: "time", nullable: true }) heure_pause!: string | null;
@@ -20,6 +20,6 @@ export class Planning {
     // Indique si c'est un jour de travail
     @Column({ type: "boolean", default: true }) jour_travail!: boolean;
     // Relation ManyToOne avec l'entité Role
-    @ManyToOne(() => Role, r => r.plannings, { onDelete: "CASCADE", onUpdate: "CASCADE" })
+    @ManyToOne("Role", "plannings", { onDelete: "CASCADE", onUpdate: "CASCADE" })
     role!: Role;
 }

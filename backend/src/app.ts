@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import { setupSwagger } from "./swagger";
-import apiRouter from "./routes";
+import { setupSwagger } from "./swagger.js";
+import apiRouter from "./routes/index.js";
 
 // Création de l'application Express
 const app = express();

@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Index, Unique } from "typeorm";
-import { CibleIndicateur } from "./Cible_Indicateur";
+import type { CibleIndicateur } from "./Cible_Indicateur.js";
 
 // Entité représentant la table indicateurs
 @Entity({ name: "indicateurs" })
@@ -31,7 +31,7 @@ export class Indicateur {
     @Column({ type: "timestamptz", default: () => "now()" })
     date_generation!: Date;
     // Cible de l'indicateur
-    @ManyToOne(() => CibleIndicateur, c => c.indicateurs, { nullable: false, onDelete: "CASCADE", onUpdate: "CASCADE" })
+    @ManyToOne("CibleIndicateur", "indicateurs", { nullable: false, onDelete: "CASCADE", onUpdate: "CASCADE" })
     @JoinColumn({ name: "id_cible_indicateur" })
     cible_indicateur!: CibleIndicateur;
 }

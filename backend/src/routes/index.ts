@@ -1,33 +1,38 @@
 import { Router } from "express";
-import healthRouter from "./health";
-import rolesRouter from "./roles";
-import equipesRouter from "./equipes";
-import utilisateursRouter from "./utilisateurs";
-import horairesRouter from "./horaires";
-import indicateursRouter from "./indicateurs";
-import absencesRouter from "./absences";
-import ciblesIndicateurRouter from "./cibles_indicateur";
-import joursFeriesRouter from "./jours_feries";
-import planningsRouter from "./plannings";
-import typesAbsenceRouter from "./types_absence";
-import typesHoraireRouter from "./types_horaire";
-import rapportsRouter from "./rapports";
+import healthRouter from "./health.js";
+import rolesRouter from "./roles.js";
+import equipesRouter from "./equipes.js";
+import utilisateursRouter from "./utilisateurs.js";
+import horairesRouter from "./horaires.js";
+import indicateursRouter from "./indicateurs.js";
+import absencesRouter from "./absences.js";
+import ciblesIndicateurRouter from "./cibles_indicateur.js";
+import joursFeriesRouter from "./jours_feries.js";
+import planningsRouter from "./plannings.js";
+import typesAbsenceRouter from "./types_absence.js";
+import typesHoraireRouter from "./types_horaire.js";
+import rapportsRouter from "./rapports.js";
+import authRouter from "./auth.routes.js";
+import { authenticateToken } from "../middleware/auth.middleware.js";
 
 const apiRouter = Router();
 
-// On appelle les différents routeurs (/routes)
+// Routes publiques (sans authentification)
 apiRouter.use("/health", healthRouter);
-apiRouter.use("/roles", rolesRouter);
-apiRouter.use("/equipes", equipesRouter);
-apiRouter.use("/utilisateurs", utilisateursRouter);
-apiRouter.use("/horaires", horairesRouter);
-apiRouter.use("/indicateurs", indicateursRouter);
-apiRouter.use("/absences", absencesRouter);
-apiRouter.use("/cibles-indicateur", ciblesIndicateurRouter);
-apiRouter.use("/jours-feries", joursFeriesRouter);
-apiRouter.use("/plannings", planningsRouter);
-apiRouter.use("/types-absence", typesAbsenceRouter);
-apiRouter.use("/types-horaire", typesHoraireRouter);
-apiRouter.use("/rapports", rapportsRouter);
+apiRouter.use("/auth", authRouter);
+
+// Routes protégées (authentification requise)
+apiRouter.use("/roles", authenticateToken, rolesRouter);
+apiRouter.use("/equipes", authenticateToken, equipesRouter);
+apiRouter.use("/utilisateurs", authenticateToken, utilisateursRouter);
+apiRouter.use("/horaires", authenticateToken, horairesRouter);
+apiRouter.use("/indicateurs", authenticateToken, indicateursRouter);
+apiRouter.use("/absences", authenticateToken, absencesRouter);
+apiRouter.use("/cibles-indicateur", authenticateToken, ciblesIndicateurRouter);
+apiRouter.use("/jours-feries", authenticateToken, joursFeriesRouter);
+apiRouter.use("/plannings", authenticateToken, planningsRouter);
+apiRouter.use("/types-absence", authenticateToken, typesAbsenceRouter);
+apiRouter.use("/types-horaire", authenticateToken, typesHoraireRouter);
+apiRouter.use("/rapports", authenticateToken, rapportsRouter);
 
 export default apiRouter;

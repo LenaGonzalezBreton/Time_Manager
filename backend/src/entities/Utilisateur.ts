@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
-import { Role } from "./Role";
-import { Horaire } from "./Horaire";
-import { Absence } from "./Absence";
-import { Equipe } from "./Equipe";
+import { Role } from "./Role.js";
+import type { Horaire } from "./Horaire.js";
+import type { Absence } from "./Absence.js";
+import { Equipe } from "./Equipe.js";
 
 // Entité représentant la table utilisateurs
 @Entity({ name: "utilisateurs" })
@@ -26,10 +26,10 @@ export class Utilisateur {
     @ManyToOne(() => Role, r => r.utilisateurs, { nullable: true, onDelete: "SET NULL", onUpdate: "CASCADE" })
     role!: Role | null;
     // Relation OneToMany avec l'entité Horaire
-    @OneToMany(() => Horaire, h => h.utilisateur)
+    @OneToMany("Horaire", "utilisateur")
     horaires!: Horaire[];
     // Relation OneToMany avec l'entité Absence
-    @OneToMany(() => Absence, a => a.utilisateur)
+    @OneToMany("Absence", "utilisateur")
     absences!: Absence[];
     // Relation ManyToMany avec l'entité Equipe
     @ManyToMany(() => Equipe, e => e.membres, { cascade: false })

@@ -1,6 +1,6 @@
 // backend/src/routes/roles.ts
 import { Router } from "express";
-import { getEquipes, postEquipe, putEquipe, deleteEquipe } from "../controllers/equipes.controller";
+import { getEquipes, postEquipe, putEquipe, deleteEquipe, getEquipe } from "../controllers/equipes.controller.js";
 
 const router = Router();
 
@@ -15,6 +15,25 @@ const router = Router();
  *         description: OK
  */
 router.get("/", getEquipes);
+
+/**
+ * @openapi
+ * /api/equipes/{id}:
+ *   get:
+ *     tags: [Equipes]
+ *     summary: Récupère une équipe par son ID avec ses membres
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: integer }
+ *     responses:
+ *       200:
+ *         description: Équipe trouvée
+ *       404:
+ *         description: Introuvable
+ */
+router.get("/:id", getEquipe);
 
 /**
  * @openapi

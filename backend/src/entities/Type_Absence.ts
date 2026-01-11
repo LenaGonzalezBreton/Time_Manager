@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { Absence } from "./Absence";
+import type { Absence } from "./Absence.js";
 
 // Entité représentant la table types_absence
 @Entity({ name: "types_absence" })
@@ -12,6 +12,6 @@ export class TypeAbsence {
     @Column({ type: "varchar", length: 50, unique: true })
     type!: string;
     // Relation OneToMany avec l'entité Absence
-    @OneToMany(() => Absence, a => a.type_absence)
+    @OneToMany("Absence", "type_absence")
     absences!: Absence[];
 }

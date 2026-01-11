@@ -1,57 +1,105 @@
+import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 // @ts-ignore
 import logo from "../Images/Logo_mieux.png"
-import {House, Handshake, Calendar, ChartColumn, Settings, LogOut} from "lucide-react";
+import { House, Handshake, Calendar, ChartColumn, Settings, LogOut, Users } from "lucide-react";
 
 const NavBar = () => {
+    const { isManager, logout } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleLogout = (e: React.MouseEvent) => {
+        e.preventDefault();
+        logout();
+        navigate('/login');
+    };
+
+    const isActive = (path: string) => location.pathname === path;
+
+    const linkBase = "flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 group";
+    const linkActive = "bg-blue-600 text-white shadow-lg";
+    const linkInactive = "text-white hover:bg-slate-700/50";
+
     return (
-        <aside className="text-xs flex flex-col justify-between h-full bg-gray-400 p-3">
+        <aside className="h-full flex flex-col justify-between p-6 bg-slate-800">
             <div>
-                <img src={logo} className="w-40 mx-auto filter brightness-60 saturate-[180%] hue-rotate-[10deg] mb-5"/>
-                <div className="bg-blue-300 p-2 rounded-xl border-3 border-black flex flex-col justify-between">
-                    <h2 className="!md:text-2xl text-xl mb-4 text-blue-950 font-bold ">Main</h2>
-                    <nav className="flex flex-col gap-4 ">
-                        <a href="#"
-                           className="flex items-center  bg-blue-950 px-1 py-2 gap-3 rounded-xl !text-white !font-semibold md:text-xl justify-center hover:bg-blue-600 active:scale-95 transition transform duration-150 ease-out">
-                            <House className="text-blue-400 mr-1 ml-1 size-5"/>
-                            Dashboard
-                        </a>
-                        <a href="#"
-                           className="flex items-center justify-center gap-3 bg-blue-950 px-1 py-2 rounded-xl !text-white !font-semibold md:text-xl hover:bg-blue-600 active:scale-95 transition transform duration-150 ease-out">
-                            <Handshake className="text-blue-400 mr-1 ml-1 size-5 "/>
-                            Équipe
-                        </a>
-                        <a href="#"
-                           className="flex items-center justify-center gap-3 bg-blue-950 px-1 py-2 rounded-xl !text-white !font-semibold md:text-xl hover:bg-blue-600 active:scale-95 transition transform duration-150 ease-out">
-                            <Calendar className="text-blue-400 mr-1 ml-1 size-5"/>
-                            Calendrier
-                        </a>
-                        <a href="#"
-                           className="flex items-center justify-center gap-3 bg-blue-950 px-1 py-2 rounded-xl !text-white !font-semiqbold md:text-xl  hover:bg-blue-600 active:scale-95 transition transform duration-150 ease-out">
-                            <ChartColumn className="text-blue-400 mr-1 ml-1 size-5"/>
-                            Statistique
-                        </a>
-                    </nav>
+                <img src={logo} className="w-32 mx-auto mb-10 filter drop-shadow-lg" alt="Logo" />
+
+                <div className="flex flex-col gap-2">
+                    <div>
+                        <Link
+                            to="/dashboard"
+                            className={`${linkBase} ${isActive('/dashboard') ? linkActive : linkInactive}`}
+                        >
+                            <House size={20} />
+                            <span>Dashboard</span>
+                        </Link>
+                    </div>
+
+                    {isManager && (
+                        <div>
+                            <Link
+                                to="/utilisateurs"
+                                className={`${linkBase} ${isActive('/utilisateurs') ? linkActive : linkInactive}`}
+                            >
+                                <Users size={20} />
+                                <span>Utilisateurs</span>
+                            </Link>
+                        </div>
+                    )}
+
+                    <div>
+                        <Link
+                            to="/equipes"
+                            className={`${linkBase} ${isActive('/equipes') ? linkActive : linkInactive}`}
+                        >
+                            <Handshake size={20} />
+                            <span>Équipe</span>
+                        </Link>
+                    </div>
+
+                    <div>
+                        <Link
+                            to="/calendrier"
+                            className={`${linkBase} ${isActive('/calendrier') ? linkActive : linkInactive}`}
+                        >
+                            <Calendar size={20} />
+                            <span>Calendrier</span>
+                        </Link>
+                    </div>
+
+                    <div>
+                        <Link
+                            to="/statistiques"
+                            className={`${linkBase} ${isActive('/statistiques') ? linkActive : linkInactive}`}
+                        >
+                            <ChartColumn size={20} />
+                            <span>Statistiques</span>
+                        </Link>
+                    </div>
+
+                    <div>
+                        <Link
+                            to="/parametres"
+                            className={`${linkBase} ${linkInactive}`}
+                        >
+                            <Settings size={20} />
+                            <span>Paramètres</span>
+                        </Link>
+                    </div>
                 </div>
             </div>
 
-            <div className="bg-blue-300 p-3 rounded-xl border-3  border-black">
-                <h3 className="!md:text-2xl text-xl mb-4 text-blue-950  font-bold">Compte</h3>
-                <nav className="flex flex-col gap-3">
-                    <a href="#"
-                       className="flex items-center gap-2 !text-white bg-blue-950 px-1 py-2 rounded-xl !font-semibold md:text-xl justify-center hover:bg-blue-600 active:scale-95 transition transform duration-150 ease-out">
-                        <Settings className="text-blue-300 mr-1 ml-1 size-5"/>
-                        Paramètres
-                    </a>
-                    <a href="#"
-                       className="flex items-center gap-3 !text-white bg-blue-950 px-1 py-2 rounded-xl !font-semibold md:text-xl justify-center hover:bg-blue-600 active:scale-95 transition transform duration-150 ease-out">
-                        <LogOut className="text-blue-300 mr-1 ml-1 size-5  "/>
-                        Sign-out
-                    </a>
-                </nav>
-            </div>
+            <button
+                onClick={handleLogout}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 text-white hover:bg-red-600/20 border border-red-600/30 hover:border-red-600"
+            >
+                <LogOut size={20} />
+                <span>Déconnexion</span>
+            </button>
         </aside>
+    );
+};
 
-
-    )
-}
 export default NavBar;

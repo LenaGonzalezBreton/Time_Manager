@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class UpdateIndicateurPrecision1736086746000 implements MigrationInterface {
-    name = 'UpdateIndicateurPrecision1736086746000'
+export class UpdateIndicateurPrecision1760713078242 implements MigrationInterface {
+    name = 'UpdateIndicateurPrecision1760713078242'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         // Modifier la précision des colonnes taux_retard et taux_presence de (2,2) à (5,2)

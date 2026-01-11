@@ -1,28 +1,30 @@
-const MonEquipe = () => {
-    return (
-        <div
-            className="bg-gray-200 flex flex-col gap-4 h-full md:w-1/4 w-2/3 p-4 justify-between rounded-xl border-black border-2">
-            <label className="text-blue-950 text-2xl font-bold">Mon équipe</label>
-            <div className="flex flex-col gap-5 mb-3">
-                <div className="flex flex-row justify-between">
-                    <img className="w-10 h-10 rounded-full bg-white border-2 border-gray-500"/>
-                    <img className="w-10 h-10 rounded-full bg-white border-2 border-gray-500"/>
-                    <img className="w-10 h-10 rounded-full bg-white border-2 border-gray-500"/>
-                </div>
-                <div className="flex flex-row justify-between">
-                    <img className="w-10 h-10 rounded-full bg-white border-2 border-gray-500"/>
-                    <img className="w-10 h-10 rounded-full bg-white border-2 border-gray-500"/>
-                    <img className="w-10 h-10 rounded-full bg-white border-2 border-gray-500"/>
-                </div>
-                <div className="flex flex-row justify-between">
-                    <img className="w-10 h-10 rounded-full bg-white border-2 border-gray-500"/>
-                    <img className="w-10 h-10 rounded-full bg-white border-2 border-gray-500"/>
-                    <img className="w-10 h-10 rounded-full bg-white border-2 border-gray-500"/>
-                </div>
+import { useAuth } from "../contexts/AuthContext";
+import { Users } from "lucide-react";
 
+const MonEquipe = () => {
+    const { user } = useAuth();
+    const equipes = (user as any)?.equipe || [];
+
+    return (
+        <div className="modern-card p-6 flex flex-col gap-4 w-full md:w-auto min-w-[280px]">
+            <div className="flex items-center gap-3 border-b border-slate-200 pb-3">
+                <Users className="text-blue-600" size={24} />
+                <h3 className="text-xl font-bold text-slate-900">Mon équipe</h3>
+            </div>
+
+            <div className="flex flex-col gap-2 max-h-[240px] overflow-y-auto">
+                {equipes.length === 0 ? (
+                    <p className="text-slate-500 text-center py-4">Aucune équipe assignée</p>
+                ) : (
+                    equipes.map((eq: any) => (
+                        <div key={eq.id_equipe} className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4">
+                            <p className="font-bold text-center text-blue-900">{eq.nom}</p>
+                        </div>
+                    ))
+                )}
             </div>
         </div>
-
     )
 }
+
 export default MonEquipe;

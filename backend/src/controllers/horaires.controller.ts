@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as svc from "../services/horaires.service";
+import * as svc from "../services/horaires.service.js";
 
 // GET /utilisateurs/{id}/horaires
 export async function getHorairesByUser(req: Request, res: Response) {

@@ -1,7 +1,7 @@
-import { AppDataSource } from "../data-source";
-import { Horaire } from "../entities/Horaire";
-import { Utilisateur } from "../entities/Utilisateur";
-import { TypeHoraire } from "../entities/Type_Horaire";
+import { AppDataSource } from "../data-source.js";
+import { Horaire } from "../entities/Horaire.js";
+import { Utilisateur } from "../entities/Utilisateur.js";
+import { TypeHoraire } from "../entities/Type_Horaire.js";
 import { Not } from "typeorm";
 
 // On utilise le repository de TypeORM pour interagir avec la base de données

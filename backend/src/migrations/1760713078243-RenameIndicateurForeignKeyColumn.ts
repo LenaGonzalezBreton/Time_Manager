@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class RenameIndicateurForeignKeyColumn1736087346000 implements MigrationInterface {
-    name = 'RenameIndicateurForeignKeyColumn1736087346000'
+export class RenameIndicateurForeignKeyColumn1760713078243 implements MigrationInterface {
+    name = 'RenameIndicateurForeignKeyColumn1760713078243'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         // Renommer la colonne de cibleIndicateurIdCibleIndicateur à id_cible_indicateur

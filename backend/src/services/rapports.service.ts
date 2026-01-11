@@ -1,5 +1,5 @@
-import { AppDataSource } from "../data-source";
-import { Indicateur } from "../entities/Indicateur";
+import { AppDataSource } from "../data-source.js";
+import { Indicateur } from "../entities/Indicateur.js";
 
 export type KpiAutorise = "taux_presence" | "taux_retard" | "minutes_travaillees" | "minutes_retards";
 export type Granularite = "summary" | "daily"; // valeurs internes conservées pour compatibilité

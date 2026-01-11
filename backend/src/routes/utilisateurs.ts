@@ -1,7 +1,6 @@
-// backend/src/routes/roles.ts
 import { Router } from "express";
-import { getUtilisateurs, postUtilisateur, putUtilisateur, deleteUtilisateur } from "../controllers/utilisateurs.controller";
-import { getHorairesByUser } from "../controllers/horaires.controller";
+import { getUtilisateurs, postUtilisateur, putUtilisateur, deleteUtilisateur, getAbsencesByUser, getIndicateursByUser } from "../controllers/utilisateurs.controller.js";
+import { getHorairesByUser } from "../controllers/horaires.controller.js";
 
 const router = Router();
 
@@ -121,5 +120,39 @@ router.delete("/:id", deleteUtilisateur);
  *         description: OK
  */
 router.get("/:id/horaires", getHorairesByUser);
+
+/**
+ * @openapi
+ * /api/utilisateurs/{id}/absences:
+ *   get:
+ *     tags: [Absences]
+ *     summary: Liste des absences pour un utilisateur
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: integer }
+ *     responses:
+ *       200:
+ *         description: OK
+ */
+router.get("/:id/absences", getAbsencesByUser);
+
+/**
+ * @openapi
+ * /api/utilisateurs/{id}/indicateurs:
+ *   get:
+ *     tags: [Indicateurs]
+ *     summary: Liste des indicateurs pour un utilisateur
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: integer }
+ *     responses:
+ *       200:
+ *         description: OK
+ */
+router.get("/:id/indicateurs", getIndicateursByUser);
 
 export default router;

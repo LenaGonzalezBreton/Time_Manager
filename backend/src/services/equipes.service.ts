@@ -1,5 +1,5 @@
-import { AppDataSource } from "../data-source";
-import { Equipe } from "../entities/Equipe";
+import { AppDataSource } from "../data-source.js";
+import { Equipe } from "../entities/Equipe.js";
 // On utilise le repository de TypeORM pour interagir avec la base de données
 const repo = () => AppDataSource.getRepository(Equipe);
 
@@ -38,4 +38,14 @@ export async function updateEquipe(id_equipe: number, data: Partial<Equipe>) {
 export async function deleteEquipe(id: number) {
     const result = await repo().delete(id);
     if (!result.affected) throw { status: 404, message: "Équipe introuvable" };
+}
+
+// Récupérer une équipe par ID avec ses membres
+export async function getEquipeById(id_equipe: number) {
+    const equipe = await repo().findOne({
+        where: { id_equipe },
+        relations: ['membres', 'membres.role'] // On inclut les membres et leurs rôles
+    });
+    if (!equipe) throw { status: 404, message: "Équipe introuvable" };
+    return equipe;
 }

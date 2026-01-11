@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import * as svc from "../services/indicateurs.service";
+import * as svc from "../services/indicateurs.service.js";
 
 // GET /indicateurs
 export async function getIndicateurs(_req: Request, res: Response, next: NextFunction) {

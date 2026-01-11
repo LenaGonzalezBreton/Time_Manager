@@ -1,6 +1,6 @@
 // backend/src/routes/roles.ts
 import { Router } from "express";
-import { getTypesHoraire, postTypeHoraire, putTypeHoraire, deleteTypeHoraire } from "../controllers/types_horaire.controller";
+import { getTypesHoraire, postTypeHoraire, putTypeHoraire, deleteTypeHoraire } from "../controllers/types_horaire.controller.js";
 
 const router = Router();
 

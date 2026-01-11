@@ -1,4 +1,4 @@
-import { AppDataSource } from '../data-source';
+import { AppDataSource } from '../data-source.js';
 import { DataSource } from 'typeorm';
 import * as fs from 'fs';
 import * as path from 'path';

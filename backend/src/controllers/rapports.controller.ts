@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { getRapport, KpiAutorise, Granularite, FiltresRapport } from "../services/rapports.service";
+import { getRapport, KpiAutorise, Granularite, FiltresRapport } from "../services/rapports.service.js";
 
 const KPIS_AUTORISES: KpiAutorise[] = [
   "taux_presence",

@@ -1,31 +1,21 @@
 import apiService from './api.service';
-import type {Equipe} from '../types/equipe.types.ts';
+import type { User } from './authService';
 
-// Service pour gérer les appels API liés aux équipes
+export interface Equipe {
+    id_equipe: number;
+    nom: string;
+    description?: string;
+    membres?: User[];
+}
+
 class EquipeService {
-    private readonly endpoint = '/equipe';
-
     async getAll(): Promise<Equipe[]> {
-        return apiService.get<Equipe[]>(this.endpoint);
+        return apiService.get<Equipe[]>('/equipes');
     }
 
     async getById(id: number): Promise<Equipe> {
-        return apiService.get<Equipe>(`${this.endpoint}/${id}`);
-    }
-
-    async create(data: Partial<Equipe>): Promise<Equipe> {
-        return apiService.post<Equipe>(this.endpoint, data);
-    }
-
-    async update(id: number, data: Partial<Equipe>): Promise<Equipe> {
-        return apiService.put<Equipe>(`${this.endpoint}/${id}`, data);
-    }
-
-    async delete(id: number): Promise<void> {
-        return apiService.delete<void>(`${this.endpoint}/${id}`);
+        return apiService.get<Equipe>(`/equipes/${id}`);
     }
 }
 
 export default new EquipeService();
-
-

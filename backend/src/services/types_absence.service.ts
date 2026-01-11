@@ -1,5 +1,5 @@
-import { AppDataSource } from "../data-source";
-import { TypeAbsence } from "../entities/Type_Absence";
+import { AppDataSource } from "../data-source.js";
+import { TypeAbsence } from "../entities/Type_Absence.js";
 
 const repo = () => AppDataSource.getRepository(TypeAbsence);
 

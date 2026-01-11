@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import utilisateursService from '../services/utilisateurs.service';
 import type { Utilisateur } from '../types/utilisateur.types';
 
@@ -59,7 +61,13 @@ const ExempleUtilisateurs = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">📋 Liste des Utilisateurs</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">📋 Liste des Utilisateurs</h2>
+        <Link to="/dashboard" className="flex items-center gap-2 bg-blue-950 text-white px-3 py-2 rounded-lg hover:bg-blue-800 transition">
+          <ArrowLeft size={16} />
+          Retour
+        </Link>
+      </div>
       <p className="text-sm text-gray-600 mb-4">
         Nombre d'utilisateurs: {utilisateurs.length}
       </p>

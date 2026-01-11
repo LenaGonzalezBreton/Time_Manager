@@ -4,7 +4,7 @@
 --  - types_horaire (Standard, Télétravail, Astreinte, Heures Sup)
 --  - types_absence (Congé payé, Maladie, RTT)
 --  - planning hebdomadaire par rôle (lun->ven travaillés, sam/dim off)
---  - jours fériés (incluant 2025-01-01)
+--  - jours fériés (incluant 2026-01-01)
 --  - equipes (5)
 --  - utilisateurs (20: 4/équipe dont 1 manager)
 --  - appartenir (membres des équipes)
@@ -51,7 +51,7 @@ INSERT INTO planning (jour_semaine, heure_arrivee, heure_pause, heure_depart, jo
   ('Dimanche', NULL,    NULL,    NULL,    false,2);
 
 -- Jours fériés (inclut 2025-01-01)
-INSERT INTO jours_feries (jour_ferie) VALUES ('2025-01-01'), ('2025-01-06');
+INSERT INTO jours_feries (jour_ferie) VALUES ('2026-01-01'), ('2026-01-06');
 
 -- Teams
 INSERT INTO equipes (nom, description) VALUES
@@ -98,11 +98,11 @@ FROM generate_series(1, 20) AS u_id;
 
 -- Absences (quelques cas)
 INSERT INTO absences (date_debut, date_fin, justifiee, commentaire, "utilisateurIdUtilisateur", "typeAbsenceIdTypeAbsence") VALUES
-  ('2025-01-03','2025-01-03', true, 'Congé court', 1, 1),
-  ('2025-01-02','2025-01-03', true, 'Maladie',     2, 2),
-  ('2025-01-06','2025-01-07', true, 'RTT',        10, 3),
-  ('2025-01-02','2025-01-02', true, 'Congé',       5, 1),
-  ('2025-01-07','2025-01-07', true, 'RTT',        12, 3);
+  ('2026-01-03','2026-01-03', true, 'Congé court', 1, 1),
+  ('2026-01-02','2026-01-03', true, 'Maladie',     2, 2),
+  ('2026-01-06','2026-01-07', true, 'RTT',        10, 3),
+  ('2026-01-02','2026-01-02', true, 'Congé',       5, 1),
+  ('2026-01-07','2026-01-07', true, 'RTT',        12, 3);
 
 -- Horaires générés: jours ouvrés (lun->ven), hors fériés et absences
 -- Variation de retard/temps travaillé selon l'utilisateur pour diversifier les données
@@ -123,7 +123,7 @@ SELECT
   (480 - ((u % 2)*15)) AS minutes_travaillees,
   CASE WHEN (EXTRACT(ISODOW FROM d)::int IN (2,4) AND (u % 2) = 0) THEN 2 ELSE 1 END AS type_horaire,
   u AS utilisateur
-FROM generate_series('2025-01-01'::date, '2025-01-07'::date, '1 day') AS d
+FROM generate_series('2026-01-01'::date, '2026-01-31'::date, '1 day') AS d
 CROSS JOIN generate_series(1, 20) AS u
 LEFT JOIN jours_feries jf ON jf.jour_ferie = d::date
 LEFT JOIN absences a ON a."utilisateurIdUtilisateur" = u AND d::date BETWEEN a.date_debut AND a.date_fin

@@ -1,6 +1,6 @@
 // backend/src/routes/roles.ts
 import { Router } from "express";
-import { getTypesAbsence, postTypeAbsence, putTypeAbsence, deleteTypeAbsence } from "../controllers/types_absence.controller";
+import { getTypesAbsence, postTypeAbsence, putTypeAbsence, deleteTypeAbsence } from "../controllers/types_absence.controller.js";
 
 const router = Router();
 

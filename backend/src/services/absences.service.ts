@@ -1,7 +1,7 @@
-import { AppDataSource } from "../data-source";
-import { Absence } from "../entities/Absence";
-import { Utilisateur } from "../entities/Utilisateur";
-import { TypeAbsence } from "../entities/Type_Absence";
+import { AppDataSource } from "../data-source.js";
+import { Absence } from "../entities/Absence.js";
+import { Utilisateur } from "../entities/Utilisateur.js";
+import { TypeAbsence } from "../entities/Type_Absence.js";
 import { Not } from "typeorm";
 
 const repo = () => AppDataSource.getRepository(Absence);
@@ -10,6 +10,14 @@ const typeRepo = () => AppDataSource.getRepository(TypeAbsence);
 
 export async function listAbsences() {
     return repo().find({ relations: ["utilisateur", "type_absence"], order: { date_debut: "DESC" } });
+}
+
+export async function listAbsencesByUser(userId: number) {
+    return repo().find({
+        where: { utilisateur: { id_utilisateur: userId } },
+        relations: ["utilisateur", "type_absence"],
+        order: { date_debut: "DESC" }
+    });
 }
 
 export async function createAbsence(data: {

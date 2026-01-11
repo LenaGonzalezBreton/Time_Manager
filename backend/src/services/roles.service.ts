@@ -1,5 +1,5 @@
-import { AppDataSource } from "../data-source";
-import { Role } from "../entities/Role";
+import { AppDataSource } from "../data-source.js";
+import { Role } from "../entities/Role.js";
 // On utilise le repository de TypeORM pour interagir avec la base de données
 const repo = () => AppDataSource.getRepository(Role);
 

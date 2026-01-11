@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Index, Check, Unique } from "typeorm";
-import { Utilisateur } from "./Utilisateur";
-import { TypeAbsence } from "./Type_Absence";
+import type { Utilisateur } from "./Utilisateur.js";
+import { TypeAbsence } from "./Type_Absence.js";
 
 // Entité représentant la table absences
 @Entity({ name: "absences" })
@@ -28,7 +28,7 @@ export class Absence {
     @Column({ type: "varchar", length: 200, nullable: true })
     commentaire!: string | null;
     // Relation Many to one avec la table utilisateur
-    @ManyToOne(() => Utilisateur, u => u.absences, { onDelete: "CASCADE", onUpdate: "CASCADE" })
+    @ManyToOne("Utilisateur", "absences", { onDelete: "CASCADE", onUpdate: "CASCADE" })
     utilisateur!: Utilisateur;
     // Relation Many to one avec la table type_absence
     @ManyToOne(() => TypeAbsence, ta => ta.absences, { onDelete: "RESTRICT", onUpdate: "CASCADE" })

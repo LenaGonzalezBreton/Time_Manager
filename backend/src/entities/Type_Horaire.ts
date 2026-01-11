@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { Horaire } from "./Horaire";
+import type { Horaire } from "./Horaire.js";
 
 // Entité représentant la table types_horaire
 @Entity({ name: "types_horaire" })
@@ -12,6 +12,6 @@ export class TypeHoraire {
     @Column({ type: "varchar", length: 50, unique: true })
     type!: string;
     // Relation OneToMany avec l'entité Horaire
-    @OneToMany(() => Horaire, h => h.type_horaire)
+    @OneToMany("Horaire", "type_horaire")
     horaires!: Horaire[];
 }

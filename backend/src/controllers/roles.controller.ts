@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as svc from "../services/roles.service";
+import * as svc from "../services/roles.service.js";
 
 // GET /roles
 export async function getRoles(_req: Request, res: Response) {

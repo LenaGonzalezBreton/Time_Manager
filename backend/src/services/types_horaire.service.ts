@@ -1,5 +1,5 @@
-import { AppDataSource } from "../data-source";
-import { TypeHoraire } from "../entities/Type_Horaire";
+import { AppDataSource } from "../data-source.js";
+import { TypeHoraire } from "../entities/Type_Horaire.js";
 
 const repo = () => AppDataSource.getRepository(TypeHoraire);
 

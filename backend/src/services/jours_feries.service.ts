@@ -1,5 +1,5 @@
-import { AppDataSource } from "../data-source";
-import { JourFerie } from "../entities/Jours_Feries";
+import { AppDataSource } from "../data-source.js";
+import { JourFerie } from "../entities/Jours_Feries.js";
 
 const repo = () => AppDataSource.getRepository(JourFerie);
 

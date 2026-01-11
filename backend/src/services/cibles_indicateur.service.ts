@@ -1,5 +1,5 @@
-import { AppDataSource } from "../data-source";
-import { CibleIndicateur } from "../entities/Cible_Indicateur";
+import { AppDataSource } from "../data-source.js";
+import { CibleIndicateur } from "../entities/Cible_Indicateur.js";
 import { Not } from "typeorm";
 
 const repo = () => AppDataSource.getRepository(CibleIndicateur);

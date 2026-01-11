@@ -1,6 +1,6 @@
 // backend/src/routes/roles.ts
 import { Router } from "express";
-import { getJoursFeries, postJourFerie, putJourFerie, deleteJourFerie } from "../controllers/jours_feries.controller";
+import { getJoursFeries, postJourFerie, putJourFerie, deleteJourFerie } from "../controllers/jours_feries.controller.js";
 
 const router = Router();
 

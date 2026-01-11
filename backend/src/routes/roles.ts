@@ -1,6 +1,6 @@
 // backend/src/routes/roles.ts
 import { Router } from "express";
-import { getRoles, postRole, putRole, deleteRole } from "../controllers/roles.controller";
+import { getRoles, postRole, putRole, deleteRole } from "../controllers/roles.controller.js";
 
 const router = Router();
 

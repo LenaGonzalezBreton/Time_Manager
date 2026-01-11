@@ -1,6 +1,6 @@
 // backend/src/routes/roles.ts
 import { Router } from "express";
-import { getIndicateurs, postIndicateur, putIndicateur, deleteIndicateur } from "../controllers/indicateurs.controller";
+import { getIndicateurs, postIndicateur, putIndicateur, deleteIndicateur } from "../controllers/indicateurs.controller.js";
 
 const router = Router();
 

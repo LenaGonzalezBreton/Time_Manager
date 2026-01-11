@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Index, Unique } from "typeorm";
-import { Utilisateur } from "./Utilisateur";
-import { TypeHoraire } from "./Type_Horaire";
+import type { Utilisateur } from "./Utilisateur.js";
+import { TypeHoraire } from "./Type_Horaire.js";
 
 // Entité représentant la table horaires
 @Entity({ name: "horaires" })
@@ -32,6 +32,6 @@ export class Horaire {
     @ManyToOne(() => TypeHoraire, th => th.horaires, { nullable: true, onDelete: "SET NULL", onUpdate: "CASCADE" })
     type_horaire!: TypeHoraire | null;
     // Relation Many to one avec la table utilisateur
-    @ManyToOne(() => Utilisateur, u => u.horaires, { onDelete: "CASCADE", onUpdate: "CASCADE" })
+    @ManyToOne("Utilisateur", "horaires", { onDelete: "CASCADE", onUpdate: "CASCADE" })
     utilisateur!: Utilisateur;
 }

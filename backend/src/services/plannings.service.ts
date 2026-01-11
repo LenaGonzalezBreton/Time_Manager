@@ -1,6 +1,6 @@
-import { AppDataSource } from "../data-source";
-import { Planning } from "../entities/Planning";
-import { Role } from "../entities/Role";
+import { AppDataSource } from "../data-source.js";
+import { Planning } from "../entities/Planning.js";
+import { Role } from "../entities/Role.js";
 
 const repo = () => AppDataSource.getRepository(Planning);
 const roleRepo = () => AppDataSource.getRepository(Role);

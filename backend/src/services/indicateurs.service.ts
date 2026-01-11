@@ -1,6 +1,6 @@
-import { AppDataSource } from "../data-source";
-import { Indicateur } from "../entities/Indicateur";
-import { CibleIndicateur } from "../entities/Cible_Indicateur";
+import { AppDataSource } from "../data-source.js";
+import { Indicateur } from "../entities/Indicateur.js";
+import { CibleIndicateur } from "../entities/Cible_Indicateur.js";
 import { Not } from "typeorm";
 
 // Repositories
@@ -10,6 +10,19 @@ const cibleRepo = () => AppDataSource.getRepository(CibleIndicateur);
 // Liste tous les indicateurs avec leur cible
 export async function listIndicateurs() {
     return await repo().find({
+        relations: ["cible_indicateur"],
+        order: { date_periode: "DESC" }
+    });
+}
+
+// Liste les indicateurs pour un utilisateur spécifique
+export async function listIndicateursByUser(userId: number) {
+    // Trouver la cible correspondant à l'utilisateur
+    const cible = await cibleRepo().findOne({ where: { type_cible: "utilisateur", id_cible: userId } });
+    if (!cible) return [];
+
+    return await repo().find({
+        where: { cible_indicateur: { id_cible_indicateur: cible.id_cible_indicateur } },
         relations: ["cible_indicateur"],
         order: { date_periode: "DESC" }
     });

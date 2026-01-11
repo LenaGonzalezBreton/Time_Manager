@@ -1,10 +1,16 @@
 import * as path from "path";
+import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+
+// ES module equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Charger le .env à la racine du repo
 dotenv.config({ path: path.resolve(__dirname, "..", "..", ".env") });
 
-import { AppDataSource } from "./data-source";
-import app from "./app";
+import { AppDataSource } from "./data-source.js";
+import app from "./app.js";
 // Définition du port d'écoute
 const port = Number(process.env.API_PORT) || 5000;
 

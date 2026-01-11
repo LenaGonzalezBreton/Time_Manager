@@ -1,7 +1,12 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import * as path from "path";
+import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+
+// ES module equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Charger un unique fichier .env à la racine du repo (no-op si absent)
 // - En dev local: le backend le charge depuis ../../.env

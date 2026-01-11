@@ -1,6 +1,6 @@
 // backend/src/routes/roles.ts
 import { Router } from "express";
-import { getPlannings, postPlanning, putPlanning, deletePlanning } from "../controllers/plannings.controller";
+import { getPlannings, postPlanning, putPlanning, deletePlanning } from "../controllers/plannings.controller.js";
 
 const router = Router();
 

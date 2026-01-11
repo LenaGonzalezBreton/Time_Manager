@@ -4,11 +4,11 @@ services:
     image: traefik:v3.0
     container_name: traefik
     command:
-      - "--api.insecure=true"  # Active le dashboard sur le port 8080 (à ne pas utiliser en prod)
-      - "--providers.docker=true"  # Active la détection automatique des conteneurs Docker
-      - "--entrypoints.web.address=:80"  # Déclare un point d’entrée HTTP
+      - "--api.insecure=true" # Active le dashboard sur le port 8080 (à ne pas utiliser en prod)
+      - "--providers.docker=true" # Active la détection automatique des conteneurs Docker
+      - "--entrypoints.web.address=:80" # Déclare un point d’entrée HTTP
     ports:
-      - "80:80"      # Port HTTP
+      - "80:80" # Port HTTP
       - "8080:8080" # Dashboard Traefik
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -31,7 +31,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER" ]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -53,10 +53,14 @@ services:
     depends_on:
       db:
         condition: service_healthy # Attend que la DB soit prête (fusion-test)
-    labels: # Configuration Traefik (devops)
+    labels:
+      # Configuration Traefik (devops)
       - "traefik.enable=true"
       - "traefik.http.routers.backend.rule=PathPrefix(`/api`)"
       - "traefik.http.services.backend.loadbalancer.server.port=5000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
     networks:
       - app-network
 
@@ -72,15 +76,20 @@ services:
       REACT_APP_API_URL: ${REACT_APP_API_URL}
     depends_on:
       - backend
-    labels: # Configuration Traefik (devops)
+    labels:
+      # Configuration Traefik (devops)
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=PathPrefix(`/`) && !PathPrefix(`/api`)"
       - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     networks:
       - app-network
 
 networks:
   app-network:
+
 
 volumes:
   postgres_data:

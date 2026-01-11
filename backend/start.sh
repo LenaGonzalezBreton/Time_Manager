@@ -4,7 +4,7 @@ echo "Build de l'application..."
 npm run build
 # Run les migrations de la BDD
 echo "Run de la migration de la BDD..."
-npm run typeorm:run
+npm run typeorm:run:prod
 
 # Import des données de test si la base est vide
 if [ -z "$DATABASE_URL" ]; then

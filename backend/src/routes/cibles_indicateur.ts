@@ -1,6 +1,6 @@
 // backend/src/routes/roles.ts
 import { Router } from "express";
-import { getCiblesIndicateur, postCibleIndicateur, putCibleIndicateur, deleteCibleIndicateur } from "../controllers/cibles_indicateur.controller";
+import { getCiblesIndicateur, postCibleIndicateur, putCibleIndicateur, deleteCibleIndicateur } from "../controllers/cibles_indicateur.controller.js";
 
 const router = Router();
 

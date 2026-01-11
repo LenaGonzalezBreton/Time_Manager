@@ -1,6 +1,6 @@
 // backend/src/routes/rapports.ts
 import { Router } from "express";
-import { getRapports, postRapportsRecompute } from "../controllers/rapports.controller";
+import { getRapports, postRapportsRecompute } from "../controllers/rapports.controller.js";
 
 const router = Router();
 

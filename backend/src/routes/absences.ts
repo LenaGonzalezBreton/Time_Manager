@@ -1,6 +1,6 @@
 // backend/src/routes/roles.ts
 import { Router } from "express";
-import { getAbsences, postAbsence, putAbsence, deleteAbsence } from "../controllers/absences.controller";
+import { getAbsences, postAbsence, putAbsence, deleteAbsence } from "../controllers/absences.controller.js";
 
 const router = Router();
 

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as svc from "../services/jours_feries.service";
+import * as svc from "../services/jours_feries.service.js";
 
 // GET /jours-feries
 export async function getJoursFeries(_req: Request, res: Response) {

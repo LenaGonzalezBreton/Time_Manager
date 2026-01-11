@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as svc from "../services/equipes.service";
+import * as svc from "../services/equipes.service.js";
 
 // GET /equipes
 export async function getEquipes(_req: Request, res: Response) {
@@ -25,4 +25,11 @@ export async function deleteEquipe(req: Request, res: Response) {
     const id = Number(req.params.id);
     await svc.deleteEquipe(id);
     res.status(204).send();
+}
+
+// GET /equipes/:id
+export async function getEquipe(req: Request, res: Response) {
+    const id = Number(req.params.id);
+    const equipe = await svc.getEquipeById(id);
+    res.status(200).json(equipe);
 }

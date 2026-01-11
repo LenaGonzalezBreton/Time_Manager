@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Check, Index } from "typeorm";
-import { Indicateur } from "./Indicateur";
+import type { Indicateur } from "./Indicateur.js";
 
 // Entité représentant la table cible_indicateur
 @Entity({ name: "cible_indicateur" })
@@ -25,6 +25,6 @@ export class CibleIndicateur {
     @Column({ type: "decimal", precision: 5, scale: 2, nullable: true })
     objectif_retard?: number;
     // Relation OneToMany avec l'entité Indicateur
-    @OneToMany(() => Indicateur, i => i.cible_indicateur)
+    @OneToMany("Indicateur", "cible_indicateur")
     indicateurs!: Indicateur[];
 }

@@ -4,33 +4,31 @@
     // File Layout
     "rootDir": "./src",
     "outDir": "./dist",
-
     // Environment Settings
-    // Choix de "NodeNext" pour s'aligner avec "type": "module" du package.json (sprint2)
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    // Using "bundler" to allow imports without .js extensions during build
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "target": "ESNext",
-    
     // Fusion des types nécessaires (Jest + Supertest)
-    "types": ["node", "cors", "jest", "@types/supertest"],
-    
+    "types": [
+      "node",
+      "cors",
+      "jest",
+      "@types/supertest"
+    ],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     // Note: "allowImportingTsExtensions" retiré pour permettre la génération des fichiers dans /dist
-
     // Other Outputs
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
-
     // Decorators (CRUCIAL pour TypeORM)
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-
     // Recommended Options
     "strict": true,
     "verbatimModuleSyntax": false,
@@ -40,6 +38,13 @@
     "skipLibCheck": true
   },
   // Fusion des inclusions et exclusions
-  "include": ["src/**/*", "tests/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests",
+    "**/*.test.ts"
+  ]
 }

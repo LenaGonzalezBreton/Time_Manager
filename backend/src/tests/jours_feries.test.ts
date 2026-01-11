@@ -1,6 +1,6 @@
 import request from 'supertest';
-import app from '../app';
-import { cleanTestData } from './setup';
+import app from '../app.js';
+import { cleanTestData } from './setup.js';
 
 describe('Tests API Jours Fériés', () => {
     // Nettoyer les données entre chaque test pour garantir l'isolation
