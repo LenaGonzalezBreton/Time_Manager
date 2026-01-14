@@ -30,7 +30,7 @@ const TimerCardInProgress = () => {
                     <LucideCoffee/> Pause
                 </button>
                 <button
-                    className="!bg-blue-950 w-2/5 justify-center hover:!bg-blue-600 active:scale-95 transition transform duration-150 ease-out"> Terminer
+                    className="!bg-[#12171C] w-2/5 justify-center hover:!bg-[#12171C] active:scale-95 transition transform duration-150 ease-out"> Terminer
                 </button>
 
             </div>

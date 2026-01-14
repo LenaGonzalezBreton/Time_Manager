@@ -49,11 +49,11 @@ const ProfilUtilisateur = () => {
 
   if (loading) {
     return (
-        <div className="flex items-center justify-center min-h-screen">
-            <div className="text-center">
-                <div className="text-2xl mb-2">⏳</div>
-                <p>Chargement du profil...</p>
-            </div>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="text-2xl mb-2">⏳</div>
+          <p>Chargement du profil...</p>
+        </div>
       </div>
     );
   }
@@ -139,16 +139,16 @@ const ProfilUtilisateur = () => {
               </h2>
 
               <div className="space-y-3">
-                <button className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition">
+                <button className="w-full bg-[#12171C] text-white py-2 px-4 rounded hover:bg-gray-800 transition">
                   ✏️ Modifier mon profil
                 </button>
-                <button className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition">
+                <button className="w-full bg-[#12171C] text-white py-2 px-4 rounded hover:bg-gray-800 transition">
                   🕒 Pointer mon arrivée
                 </button>
-                <button className="w-full bg-purple-500 text-white py-2 px-4 rounded hover:bg-purple-600 transition">
+                <button className="w-full bg-[#12171C] text-white py-2 px-4 rounded hover:bg-gray-800 transition">
                   📅 Voir mes horaires
                 </button>
-                <button className="w-full bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 transition">
+                <button className="w-full bg-[#12171C] text-white py-2 px-4 rounded hover:bg-gray-800 transition">
                   🏖️ Demander une absence
                 </button>
               </div>
@@ -167,11 +167,10 @@ const ProfilUtilisateur = () => {
               <button
                 key={id}
                 onClick={() => changerUtilisateur(id)}
-                className={`px-4 py-2 rounded ${
-                  utilisateur.id_utilisateur === id
-                    ? 'bg-blue-600 text-white'
+                className={`px-4 py-2 rounded ${utilisateur.id_utilisateur === id
+                    ? 'bg-[#12171C] text-white'
                     : 'bg-gray-200 hover:bg-gray-300'
-                }`}
+                  }`}
               >
                 Utilisateur {id}
               </button>

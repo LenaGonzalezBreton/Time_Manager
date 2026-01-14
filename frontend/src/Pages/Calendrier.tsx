@@ -1,10 +1,12 @@
 import NavBar from "../Components/NavBar.tsx"
 import { Menu, X } from "lucide-react";
+import { usePageTitle } from '../hooks/usePageTitle';
 import { useState } from "react";
 import Calendrier from "../Components/Calendrier.tsx";
 
 export default function CalendrierPage() {
     const [open, setOpen] = useState(false);
+    usePageTitle('Calendrier');
 
     return (
         <div className="flex h-screen w-screen relative" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)' }}>
@@ -25,7 +27,7 @@ export default function CalendrierPage() {
             )}
 
             {/* NAVBAR */}
-            <div className={`fixed top-0 left-0 h-full w-64 bg-slate-800 text-white transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
+            <div className={`fixed top-0 left-0 h-full w-64 bg-white text-[#12171C] transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
                 <NavBar />
             </div>
 

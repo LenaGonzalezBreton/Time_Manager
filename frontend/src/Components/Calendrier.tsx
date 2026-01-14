@@ -98,7 +98,7 @@ const Calendrier = () => {
                                 <>
                                     <span
                                         className={`text-sm ${isToday
-                                                ? "bg-blue-600 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center"
+                                                ? "bg-[#12171C] text-white font-bold rounded-full w-8 h-8 flex items-center justify-center"
                                                 : "text-gray-700"
                                             }`}
                                     >

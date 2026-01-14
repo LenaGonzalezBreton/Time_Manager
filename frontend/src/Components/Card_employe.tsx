@@ -12,7 +12,7 @@ export default function Card_employe({ employe }: CardEmployeProps) {
         <div className="modern-card p-4 hover:shadow-lg transition-all duration-300 flex flex-col h-full">
             {/* Avatar et nom */}
             <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-md flex-shrink-0">
+                <div className="w-12 h-12 rounded-full bg-[#AAC7FF] text-[#12171C] flex items-center justify-center font-bold text-lg shadow-md flex-shrink-0">
                     {employe.prenom[0]}{employe.nom[0]}
                 </div>
                 <div className="flex-1 min-w-0">

@@ -95,8 +95,8 @@ const TimerCardDebut = () => {
                 <button
                     onClick={handleStart}
                     className={`flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${isRunning && !isPaused
-                            ? "bg-yellow-500 hover:bg-yellow-600 text-white"
-                            : "bg-blue-600 hover:bg-blue-700 text-white"
+                            ? "bg-[#12171C] hover:bg-gray-800 text-white"
+                            : "bg-[#12171C] hover:bg-gray-800 text-white"
                         }`}
                 >
                     {getButtonIcon()}

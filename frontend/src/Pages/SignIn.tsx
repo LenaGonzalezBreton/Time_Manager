@@ -29,7 +29,7 @@ export default function Inscription() {
                     </div>
                     <div className="flex flex-col gap-2">
                         <button
-                            className="text-white ml-25 mr-25 mt-4 !bg-blue-950 hover:!bg-blue-600 active:scale-95 transition transform duration-150 ease-out"> S'inscrire
+                            className="text-white ml-25 mr-25 mt-4 !bg-[#12171C] hover:!bg-[#12171C] active:scale-95 transition transform duration-150 ease-out"> S'inscrire
                         </button>
                         <label className="!text-blue-950"> Déjà inscrit ? <a href="Se connecter"> Se
                             connecter </a></label>

@@ -9,12 +9,14 @@ import Collab from '../Components/Collab.tsx'
 import Teams from '../Components/Teams.tsx'
 import Stats from '../Components/Stats.tsx'
 
-import {Menu, X} from "lucide-react";
-import {useState} from "react";
+import { Menu, X } from "lucide-react";
+import { usePageTitle } from '../hooks/usePageTitle';
+import { useState } from "react";
 
 export default function Dashboard_manager_DebutDeJournee() {
 
     const [open, setOpen] = useState(false);
+    usePageTitle('Dashboard');
     return (
         <div className="flex h-screen w-screen bg-gray-200 relative">
             {/* Bouton menu (mobile seulement) */}
@@ -22,7 +24,7 @@ export default function Dashboard_manager_DebutDeJournee() {
                 onClick={() => setOpen(!open)}
                 className="absolute top-4 left-4 z-50 md:hidden "
             >
-                {open ? <X size={24}/> : <Menu size={24}/>}
+                {open ? <X size={24} /> : <Menu size={24} />}
             </button>
 
             {/* Overlay sombre (mobile uniquement quand menu ouvert) */}
@@ -37,13 +39,13 @@ export default function Dashboard_manager_DebutDeJournee() {
             <div
                 className={`
         fixed top-0 left-0 h-full w-64  // largeur forcée pour mobile
-        bg-gray-800 text-white 
+        bg-white text-[#12171C] 
         transition-transform duration-300 z-50
         ${open ? "translate-x-0" : "-translate-x-full"}
         md:static md:translate-x-0 md:w-3/10
     `}
             >
-                <NavBar/>
+                <NavBar />
             </div>
 
             {/* CONTENU PRINCIPAL */}
@@ -53,13 +55,13 @@ export default function Dashboard_manager_DebutDeJournee() {
                 </label>
 
                 <div className="flex md:flex-row flex-col items-center justify-center gap-6 md:gap-50 rounded-xl mb-6">
-                    <TimerCardInProgress/>
-                    <Stats/>
+                    <TimerCardInProgress />
+                    <Stats />
                 </div>
 
                 <div className="flex flex-col items-center rounded-xl gap-6 ">
-                    <Collab/>
-                    <Teams/>
+                    <Collab />
+                    <Teams />
                 </div>
             </main>
         </div>

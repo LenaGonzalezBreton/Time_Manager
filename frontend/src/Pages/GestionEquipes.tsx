@@ -1,3 +1,4 @@
+import { usePageTitle } from '../hooks/usePageTitle';
 import { useState, useEffect } from 'react';
 import NavBar from "../Components/NavBar";
 import { Menu, X, Users, Shield, Plus, Trash2, UserPlus, AlertCircle, UserMinus, Search } from "lucide-react";
@@ -11,6 +12,7 @@ const ITEMS_PER_PAGE = 5;
 export default function GestionEquipes() {
     const { isManager } = useAuth();
     const [open, setOpen] = useState(false);
+    usePageTitle('Gestion des équipes');
     const [equipes, setEquipes] = useState<Equipe[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -167,7 +169,7 @@ export default function GestionEquipes() {
             )}
 
             {/* NAVBAR */}
-            <div className={`fixed top-0 left-0 h-full w-64 bg-slate-800 text-white transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
+            <div className={`fixed top-0 left-0 h-full w-64 bg-white text-[#12171C] transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
                 <NavBar />
             </div>
 
@@ -177,10 +179,10 @@ export default function GestionEquipes() {
                     <div className="gradient-header p-6 rounded-2xl shadow-blue flex items-center gap-4 flex-1 w-full md:w-auto">
                         <span className="text-5xl">🛠️</span>
                         <div>
-                            <h1 className="text-4xl font-bold text-white tracking-tight">
+                            <h1 className="text-4xl font-bold text-[#12171C] tracking-tight">
                                 Gestion des Équipes
                             </h1>
-                            <p className="text-blue-100 mt-1">Gérez l'ensemble des équipes et leurs membres</p>
+                            <p className="text-[#12171C] opacity-75 mt-1">Gérez l'ensemble des équipes et leurs membres</p>
                         </div>
                     </div>
 
@@ -431,7 +433,7 @@ export default function GestionEquipes() {
                                 <button
                                     type="submit"
                                     disabled={!selectedUserId}
-                                    className="px-6 py-2 rounded-xl bg-green-600 text-white hover:bg-green-700 transition font-bold shadow-lg shadow-green-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="px-6 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition font-bold shadow-lg shadow-blue-200 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     Ajouter
                                 </button>

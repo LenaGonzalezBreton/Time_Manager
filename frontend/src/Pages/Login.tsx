@@ -1,3 +1,4 @@
+import { usePageTitle } from '../hooks/usePageTitle';
 import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -97,7 +98,7 @@ export default function Login() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="mr-25 ml-25 text-white !bg-blue-950 hover:!bg-blue-600 active:scale-95 transition transform duration-150 ease-out disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="mr-25 ml-25 text-white !bg-[#12171C] hover:!bg-[#12171C] active:scale-95 transition transform duration-150 ease-out disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {loading ? 'Connexion...' : 'Se connecter'}
                     </button>

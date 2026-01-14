@@ -1,3 +1,4 @@
+import { usePageTitle } from '../hooks/usePageTitle';
 import { useState, useEffect } from 'react';
 import NavBar from "../Components/NavBar";
 import { Menu, X, ArrowLeft, Users, Target, Clock, TrendingUp, ChevronRight } from "lucide-react";
@@ -18,6 +19,7 @@ export default function Statistiques() {
     const [teamDetails, setTeamDetails] = useState<TeamMemberStats[]>([]);
 
     const [loading, setLoading] = useState(true);
+    usePageTitle('Statistiques');
 
     useEffect(() => {
         if (!user) return;
@@ -83,7 +85,7 @@ export default function Statistiques() {
             )}
 
             {/* Sidebar */}
-            <div className={`fixed top-0 left-0 h-full w-64 bg-slate-800 text-white transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
+            <div className={`fixed top-0 left-0 h-full w-64 bg-white text-[#12171C] transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
                 <NavBar />
             </div>
 
@@ -94,10 +96,10 @@ export default function Statistiques() {
                         <div className="flex items-center gap-4">
                             <span className="text-5xl">📊</span>
                             <div>
-                                <h1 className="text-4xl font-bold text-white tracking-tight">
+                                <h1 className="text-4xl font-bold text-[#12171C] tracking-tight">
                                     {isManager ? "Statistiques Globales" : "Mes Statistiques"}
                                 </h1>
-                                <p className="text-blue-100 mt-1">
+                                <p className="text-[#12171C] opacity-75 mt-1">
                                     {isManager ? "Vos indicateurs et le suivi des équipes" : "Visualisez vos performances"}
                                 </p>
                             </div>
@@ -183,7 +185,7 @@ export default function Statistiques() {
                                             {teamDetails.map((member) => (
                                                 <div key={member.utilisateur.id_utilisateur} className="modern-card p-6 hover:shadow-lg transition-all duration-300">
                                                     <div className="flex items-center gap-4 mb-4 border-b border-slate-100 pb-4">
-                                                        <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xl">
+                                                        <div className="w-12 h-12 rounded-full bg-[#AAC7FF] flex items-center justify-center text-[#12171C] font-bold text-xl">
                                                             {member.utilisateur.prenom[0]}{member.utilisateur.nom[0]}
                                                         </div>
                                                         <div>
@@ -229,7 +231,7 @@ export default function Statistiques() {
                                                 className="modern-card p-6 cursor-pointer hover:scale-105 transition-transform duration-300 group"
                                             >
                                                 <div className="flex justify-between items-start mb-4">
-                                                    <div className="bg-blue-100 p-3 rounded-xl text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                                    <div className="bg-blue-100 p-3 rounded-xl text-blue-600 group-hover:bg-[#12171C] group-hover:text-white transition-colors">
                                                         <Users size={24} />
                                                     </div>
                                                     <div className="bg-slate-100 px-3 py-1 rounded-full text-xs font-semibold text-slate-600">

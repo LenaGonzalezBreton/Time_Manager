@@ -1,3 +1,4 @@
+import { usePageTitle } from '../hooks/usePageTitle';
 import { useState, useEffect } from 'react';
 import NavBar from "../Components/NavBar";
 import { Menu, X, Users, Mail, Phone, Shield, Edit2, Save, ChevronLeft, ChevronRight, Search, Plus } from "lucide-react";
@@ -11,6 +12,7 @@ const getRoles = () => apiService.get<any[]>('/roles');
 const ITEMS_PER_PAGE = 9;
 
 export default function UtilisateursPage() {
+    usePageTitle('Gestion des utilisateurs');
     const { user, isAdmin, isManager } = useAuth();
 
     const [open, setOpen] = useState(false);
@@ -151,7 +153,7 @@ export default function UtilisateursPage() {
             )}
 
             {/* NAVBAR */}
-            <div className={`fixed top-0 left-0 h-full w-64 bg-slate-800 text-white transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
+            <div className={`fixed top-0 left-0 h-full w-64 bg-white text-[#12171C] transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
                 <NavBar />
             </div>
 
@@ -162,10 +164,10 @@ export default function UtilisateursPage() {
                     <div className="gradient-header p-6 rounded-2xl shadow-blue flex items-center gap-4 flex-1 w-full md:w-auto">
                         <span className="text-5xl"><Users size={48} /></span>
                         <div>
-                            <h1 className="text-4xl font-bold text-white tracking-tight">
+                            <h1 className="text-4xl font-bold text-[#12171C] tracking-tight">
                                 Utilisateurs
                             </h1>
-                            <p className="text-blue-100 mt-1">Gérez les membres de l'organisation</p>
+                            <p className="text-[#12171C] opacity-75 mt-1">Gérez les membres de l'organisation</p>
                         </div>
                     </div>
 
@@ -220,7 +222,7 @@ export default function UtilisateursPage() {
                                     >
                                         {/* Avatar avec initiales */}
                                         <div className="flex items-start gap-4 mb-4">
-                                            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white flex items-center justify-center font-bold text-xl shadow-lg">
+                                            <div className="w-14 h-14 rounded-full bg-[#AAC7FF] text-[#12171C] flex items-center justify-center font-bold text-xl shadow-lg">
                                                 {user.prenom?.charAt(0) || '?'}{user.nom?.charAt(0) || '?'}
                                             </div>
                                             <div className="flex-1">
@@ -255,7 +257,7 @@ export default function UtilisateursPage() {
                                             <div className="mt-4 pt-4 border-t border-slate-100">
                                                 <button
                                                     onClick={() => handleEditClick(user)}
-                                                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition"
+                                                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-[#12171C] hover:bg-gray-800 text-white font-medium rounded-lg transition"
                                                 >
                                                     <Edit2 size={16} />
                                                     Modifier
@@ -361,7 +363,7 @@ export default function UtilisateursPage() {
                                 </button>
                                 <button
                                     type="submit"
-                                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition disabled:opacity-50"
+                                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition disabled:opacity-50"
                                     disabled={editLoading}
                                 >
                                     <Save size={16} />

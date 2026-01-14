@@ -1,3 +1,4 @@
+import { usePageTitle } from '../hooks/usePageTitle';
 import { useState } from 'react';
 import NavBar from "../Components/NavBar";
 import { Menu, X, User, Lock, Save } from "lucide-react";
@@ -6,6 +7,7 @@ import utilisateursService from '../services/utilisateurs.service';
 
 export default function Parametres() {
     const [open, setOpen] = useState(false);
+    usePageTitle('Paramètres');
     const { user, updateUser } = useAuth();
 
     // États pour les informations personnelles
@@ -91,7 +93,7 @@ export default function Parametres() {
             )}
 
             {/* NAVBAR */}
-            <div className={`fixed top-0 left-0 h-full w-64 bg-slate-800 text-white transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
+            <div className={`fixed top-0 left-0 h-full w-64 bg-white text-[#12171C] transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
                 <NavBar />
             </div>
 
@@ -101,10 +103,10 @@ export default function Parametres() {
                 <div className="gradient-header p-6 rounded-2xl shadow-blue flex items-center gap-4">
                     <span className="text-5xl">⚙️</span>
                     <div>
-                        <h1 className="text-4xl font-bold text-white tracking-tight">
+                        <h1 className="text-4xl font-bold text-[#12171C] tracking-tight">
                             Paramètres
                         </h1>
-                        <p className="text-blue-100 mt-1">Gérez vos informations personnelles</p>
+                        <p className="text-[#12171C] opacity-75 mt-1">Gérez vos informations personnelles</p>
                     </div>
                 </div>
 
@@ -178,7 +180,7 @@ export default function Parametres() {
                             <button
                                 type="submit"
                                 disabled={loadingInfo}
-                                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 <Save size={20} />
                                 {loadingInfo ? 'Enregistrement...' : 'Enregistrer les modifications'}
@@ -246,7 +248,7 @@ export default function Parametres() {
                             <button
                                 type="submit"
                                 disabled={loadingPassword}
-                                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 <Lock size={20} />
                                 {loadingPassword ? 'Modification...' : 'Changer le mot de passe'}

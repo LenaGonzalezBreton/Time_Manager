@@ -1,6 +1,7 @@
 import { useAuth } from "../contexts/AuthContext";
 import NavBar from "../Components/NavBar.tsx"
 import { Menu, X, Users, Shield } from "lucide-react";
+import { usePageTitle } from '../hooks/usePageTitle';
 import { useState, useEffect } from "react";
 import equipeService, { type Equipe as EquipeType } from "../services/equipe.service";
 import Card_employe from "../Components/Card_employe.tsx";
@@ -10,6 +11,7 @@ export default function Equipe() {
     const [open, setOpen] = useState(false);
     const [teamDetails, setTeamDetails] = useState<EquipeType[]>([]);
     const [loading, setLoading] = useState(true);
+    usePageTitle(isManager ? 'Mes Équipes' : 'Mon Équipe');
 
     useEffect(() => {
         const fetchTeams = async () => {
@@ -58,7 +60,7 @@ export default function Equipe() {
             )}
 
             {/* NAVBAR */}
-            <div className={`fixed top-0 left-0 h-full w-64 bg-slate-800 text-white transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
+            <div className={`fixed top-0 left-0 h-full w-64 bg-white text-[#12171C] transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
                 <NavBar />
             </div>
 
@@ -67,10 +69,10 @@ export default function Equipe() {
                 <div className="gradient-header p-6 rounded-2xl shadow-blue flex items-center gap-4 flex-shrink-0">
                     <span className="text-5xl">👥</span>
                     <div>
-                        <h1 className="text-4xl font-bold text-white tracking-tight">
+                        <h1 className="text-4xl font-bold text-[#12171C] tracking-tight">
                             {isManager ? "Mes Équipes" : "Mon Équipe"}
                         </h1>
-                        <p className="text-blue-100 mt-1">
+                        <p className="text-[#12171C] opacity-75 mt-1">
                             {isManager ? "Consultez toutes vos équipes et leurs membres" : "Consultez les membres de votre équipe"}
                         </p>
                     </div>

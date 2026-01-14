@@ -1,13 +1,24 @@
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useState, useEffect } from 'react';
 // @ts-ignore
 import logo from "../Images/Logo_mieux.png"
-import { House, Handshake, Calendar, ChartColumn, Settings, LogOut, Users, UsersRound, History as HistoryIcon } from "lucide-react";
+import { House, Handshake, Calendar, ChartColumn, Settings, LogOut, Users, UsersRound, History as HistoryIcon, Type } from "lucide-react";
 
 const NavBar = () => {
     const { isManager, logout } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const [isDyslexicFont, setIsDyslexicFont] = useState(false);
+
+    // Apply font to body element
+    useEffect(() => {
+        if (isDyslexicFont) {
+            document.body.classList.add('font-dyslexic');
+        } else {
+            document.body.classList.remove('font-dyslexic');
+        }
+    }, [isDyslexicFont]);
 
     const handleLogout = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -18,11 +29,11 @@ const NavBar = () => {
     const isActive = (path: string) => location.pathname === path;
 
     const linkBase = "flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 group";
-    const linkActive = "bg-blue-600 text-white shadow-lg";
-    const linkInactive = "text-white hover:bg-slate-700/50";
+    const linkActive = "bg-[#AAC7FF] text-[#12171C] shadow-lg";
+    const linkInactive = "text-[#12171C] hover:bg-[#AAC7FF]";
 
     return (
-        <aside className="h-full flex flex-col justify-between p-6 bg-slate-800">
+        <aside className="h-full flex flex-col justify-between p-6 bg-white shadow-2xl">
             <div>
                 <img src={logo} className="w-32 mx-auto mb-10 filter drop-shadow-lg" alt="Logo" />
 
@@ -32,7 +43,7 @@ const NavBar = () => {
                         <>
                             {/* ADMINISTRATION */}
                             <div className="mb-2">
-                                <p className="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                                <p className="px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
                                     Administration
                                 </p>
                                 <div className="flex flex-col gap-1">
@@ -64,7 +75,7 @@ const NavBar = () => {
 
                             {/* INFORMATIONS */}
                             <div className="mb-2">
-                                <p className="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                                <p className="px-4 text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
                                     Informations
                                 </p>
                                 <div className="flex flex-col gap-1">
@@ -157,13 +168,24 @@ const NavBar = () => {
                 </div>
             </div>
 
-            <button
-                onClick={handleLogout}
-                className="flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 text-white hover:bg-red-600/20 border border-red-600/30 hover:border-red-600"
-            >
-                <LogOut size={20} />
-                <span>Déconnexion</span>
-            </button>
+            <div className="flex flex-col gap-3">
+                {/* Font Toggle Button */}
+                <button
+                    onClick={() => setIsDyslexicFont(!isDyslexicFont)}
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 text-[#12171C] hover:bg-[#AAC7FF] border border-slate-300"
+                >
+                    <Type size={20} />
+                    <span>{isDyslexicFont ? 'Mode Standard' : 'Mode Dyslexique'}</span>
+                </button>
+
+                <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 text-[#12171C] hover:bg-red-600/20 border border-red-600/30 hover:border-red-600"
+                >
+                    <LogOut size={20} />
+                    <span>Déconnexion</span>
+                </button>
+            </div>
         </aside>
     );
 };

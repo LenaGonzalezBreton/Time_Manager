@@ -36,7 +36,7 @@ export default function Dashboard_manager_DebutDeJournee(){
 
             {/* NAVBAR */}
             <div
-                className={`fixed md:static left-0 w-2/5 md:w-1/4 bg-gray-800 text-white z-50 transition-transform duration-300
+                className={`fixed md:static left-0 w-2/5 md:w-1/4 bg-white text-[#12171C] z-50 transition-transform duration-300
       ${open ? "translate-x-0" : "-translate-x-10/12"} md:translate-x-0`}
             >
                 <NavBar />

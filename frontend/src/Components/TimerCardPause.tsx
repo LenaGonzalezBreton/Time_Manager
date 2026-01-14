@@ -186,7 +186,7 @@ const TimerCardPause = () => {
                         <button
                             onClick={handleStartDay}
                             disabled={loading}
-                            className="w-full px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold text-lg rounded-xl active:scale-95 transition transform duration-150 ease-out shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                            className="w-full px-8 py-4 bg-[#12171C] hover:bg-gray-800 text-white font-semibold text-lg rounded-xl active:scale-95 transition transform duration-150 ease-out shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         >
                             {loading ? (
                                 <>
@@ -249,8 +249,8 @@ const TimerCardPause = () => {
                             className={`flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${pauseTimeRemaining === 0 || loading
                                 ? "bg-slate-200 text-slate-400 cursor-not-allowed"
                                 : isPaused  // En pause (compteur actif) = bouton bleu "Reprendre"
-                                    ? "bg-blue-600 hover:bg-blue-700 text-white"
-                                    : "bg-yellow-500 hover:bg-yellow-600 text-white"  // Pas en pause (compteur arrêté) = bouton jaune "Pause"
+                                    ? "bg-[#12171C] hover:bg-gray-800 text-white"
+                                    : "bg-[#12171C] hover:bg-gray-800 text-white"  // Pas en pause (compteur arrêté) = bouton jaune "Pause"
                                 }`}
                         >
                             {isPaused ? (  // En pause = afficher "Reprendre"

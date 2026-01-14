@@ -1,3 +1,4 @@
+import { usePageTitle } from '../hooks/usePageTitle';
 import { useState, useEffect } from 'react';
 import NavBar from "../Components/NavBar";
 import { Menu, X, History, Clock, ChevronLeft, ChevronRight, Users, Edit } from "lucide-react";
@@ -5,6 +6,7 @@ import historiqueService, { type HistoriqueModification } from '../services/hist
 
 export default function Historique() {
     const [open, setOpen] = useState(false);
+    usePageTitle('Historique');
     const [historique, setHistorique] = useState<HistoriqueModification[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -86,7 +88,7 @@ export default function Historique() {
             )}
 
             {/* NAVBAR */}
-            <div className={`fixed top-0 left-0 h-full w-64 bg-slate-800 text-white transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
+            <div className={`fixed top-0 left-0 h-full w-64 bg-white text-[#12171C] transition-transform duration-300 z-50 ${open ? "translate-x-0" : "-translate-x-full"} md:static md:translate-x-0 md:w-3/10`}>
                 <NavBar />
             </div>
 
@@ -96,10 +98,10 @@ export default function Historique() {
                 <div className="gradient-header p-4 sm:p-6 rounded-2xl shadow-blue flex items-center gap-3 sm:gap-4 flex-shrink-0">
                     <span className="text-4xl sm:text-5xl"><History size={40} className="sm:hidden" /><History size={48} className="hidden sm:block" /></span>
                     <div>
-                        <h1 className="text-2xl sm:text-4xl font-bold text-white tracking-tight">
+                        <h1 className="text-2xl sm:text-4xl font-bold text-[#12171C] tracking-tight">
                             Historique
                         </h1>
-                        <p className="text-blue-100 mt-1 text-sm sm:text-base">Suivi des modifications</p>
+                        <p className="text-[#12171C] opacity-75 mt-1 text-sm sm:text-base">Suivi des modifications</p>
                     </div>
                 </div>
 
@@ -152,7 +154,7 @@ export default function Historique() {
                                             )}
 
                                             {/* Point sur la timeline */}
-                                            <div className="absolute left-0 sm:left-0.5 top-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-blue-600 border-2 sm:border-4 border-white shadow-lg z-10"></div>
+                                            <div className="absolute left-0 sm:left-0.5 top-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-[#12171C] border-2 sm:border-4 border-white shadow-lg z-10"></div>
 
                                             {/* Carte de l'entrée */}
                                             <div className="modern-card p-3 sm:p-4 hover:shadow-lg transition-shadow">

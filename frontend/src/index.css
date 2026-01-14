@@ -1,7 +1,16 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+
+/* OpenDyslexic font - using a more reliable source */
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('https://www.opendyslexic.org/files/OpenDyslexic-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
 :root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -69,11 +78,11 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Gradient Header - Darker Blue */
+/* Gradient Header - Updated to #AAC7FF */
 .gradient-header {
-  background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #2563eb 100%);
-  color: white;
-  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+  background: #AAC7FF;
+  color: #12171C;
+  box-shadow: 0 4px 12px rgba(170, 199, 255, 0.3);
 }
 
 /* Glass Panel */
@@ -132,16 +141,17 @@ button {
   font-size: 1em;
   font-weight: 600;
   font-family: inherit;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  background: #12171C;
   color: white;
   cursor: pointer;
   transition: all 0.25s;
-  box-shadow: 0 2px 8px rgba(29, 78, 216, 0.3);
+  box-shadow: 0 2px 8px rgba(18, 23, 28, 0.3);
 }
 
 button:hover {
-  box-shadow: 0 4px 16px rgba(29, 78, 216, 0.4);
+  box-shadow: 0 4px 16px rgba(18, 23, 28, 0.4);
   transform: translateY(-1px);
+  background: #1f2937;
 }
 
 button:active {
@@ -162,14 +172,8 @@ button:active {
   }
 }
 
-/* Force white text in sidebar - Override all other styles */
-aside a,
-aside a *,
-aside button,
-aside button * {
-  color: white !important;
-}
-
-aside a.bg-blue-600 {
-  color: white !important;
+/* Dyslexic font utility - applies to body and all children */
+body.font-dyslexic,
+body.font-dyslexic * {
+  font-family: 'Lexend', 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif !important;
 }
