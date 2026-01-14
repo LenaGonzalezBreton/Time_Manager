@@ -12,6 +12,7 @@ import planningsRouter from "./plannings.js";
 import typesAbsenceRouter from "./types_absence.js";
 import typesHoraireRouter from "./types_horaire.js";
 import rapportsRouter from "./rapports.js";
+import historiqueRouter from "./historique.js";
 import authRouter from "./auth.routes.js";
 import { authenticateToken } from "../middleware/auth.middleware.js";
 
@@ -27,6 +28,7 @@ apiRouter.use("/equipes", authenticateToken, equipesRouter);
 apiRouter.use("/utilisateurs", authenticateToken, utilisateursRouter);
 apiRouter.use("/horaires", authenticateToken, horairesRouter);
 apiRouter.use("/indicateurs", authenticateToken, indicateursRouter);
+apiRouter.use("/historique", authenticateToken, historiqueRouter);
 apiRouter.use("/absences", authenticateToken, absencesRouter);
 apiRouter.use("/cibles-indicateur", authenticateToken, ciblesIndicateurRouter);
 apiRouter.use("/jours-feries", authenticateToken, joursFeriesRouter);

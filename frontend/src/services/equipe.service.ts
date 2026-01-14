@@ -16,6 +16,22 @@ class EquipeService {
     async getById(id: number): Promise<Equipe> {
         return apiService.get<Equipe>(`/equipes/${id}`);
     }
+
+    async create(data: { nom: string; description?: string }): Promise<Equipe> {
+        return apiService.post<Equipe>('/equipes', data);
+    }
+
+    async delete(id: number): Promise<void> {
+        return apiService.delete(`/equipes/${id}`);
+    }
+
+    async addMember(teamId: number, userId: number): Promise<Equipe> {
+        return apiService.post<Equipe>(`/equipes/${teamId}/membres`, { id_utilisateur: userId });
+    }
+
+    async removeMember(teamId: number, userId: number): Promise<Equipe> {
+        return apiService.delete<Equipe>(`/equipes/${teamId}/membres/${userId}`);
+    }
 }
 
 export default new EquipeService();

@@ -108,6 +108,10 @@ Le projet est configuré pour le hot-reloading en développement :
 
 Après le premier démarrage, des comptes de test sont créés :
 
+**Admin :**
+- Email : `admin@timemanager.com`
+- Mot de passe : `admin123`
+
 **Manager :**
 - Email : `alice.martin+mg1@example.test`
 - Mot de passe : `pwd`

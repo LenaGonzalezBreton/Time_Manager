@@ -36,3 +36,20 @@ export async function deleteRole(id: number) {
     const result = await repo().delete(id);
     if (!result.affected) throw { status: 404, message: "Rôle introuvable" };
 }
+
+// Assurer l'existence des rôles par défaut
+export async function ensureDefaultRoles() {
+    const roles = ["Administrateur", "Manager", "Employé"];
+    for (const titre of roles) {
+        const exists = await repo().findOneBy({ titre });
+        if (!exists) {
+            await repo().save(repo().create({ titre }));
+            console.log(`Rôle '${titre}' créé.`);
+        }
+    }
+}
+
+// Récupérer un rôle par son titre
+export async function getRoleByTitle(titre: string) {
+    return await repo().findOneBy({ titre });
+}

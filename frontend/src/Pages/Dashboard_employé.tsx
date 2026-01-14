@@ -2,9 +2,10 @@ import { useAuth } from "../contexts/AuthContext";
 import NavBar from "../Components/NavBar.tsx"
 
 import Stats from '../Components/Stats.tsx'
-import TimerCardDebut from '../Components/TimerCardDebut.tsx'
+import TimerCardPause from '../Components/TimerCardPause.tsx'
 import Retards from '../Components/Retards.tsx'
 import Absences from '../Components/Absences.tsx'
+import JourneesIncompletes from '../Components/JourneesIncompletes.tsx'
 
 
 import { Menu, X } from "lucide-react";
@@ -38,7 +39,7 @@ export default function Dashboard_employé() {
             </div>
 
             {/* CONTENU PRINCIPAL */}
-            <main className="flex flex-col p-8 gap-8 h-screen w-full overflow-y-auto justify-between">
+            <main className="flex flex-col p-8 gap-8 h-screen w-full overflow-y-auto">
                 <div className="gradient-header p-6 rounded-2xl shadow-blue flex items-center gap-4">
                     <span className="text-5xl">👋</span>
                     <div>
@@ -49,13 +50,12 @@ export default function Dashboard_employé() {
                     </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row items-center md:justify-center gap-10 rounded-xl">
-                    <TimerCardDebut />
+                {/* Toutes les cards en flex-wrap pour desktop, colonne pour mobile */}
+                <div className="flex flex-col md:flex-row md:flex-wrap gap-6 md:gap-8">
+                    <TimerCardPause />
                     <Stats />
-                </div>
-
-                <div className="flex flex-col items-center md:flex-row md:gap-20 gap-6 rounded-xl justify-center">
                     <Retards />
+                    <JourneesIncompletes />
                     <Absences />
                     <MonEquipe />
                 </div>

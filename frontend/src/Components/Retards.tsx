@@ -10,8 +10,9 @@ const Retards = () => {
     useEffect(() => {
         if (user) {
             horaireService.getByUser(user.id_utilisateur).then(data => {
-                // Filter where minutes_retard > 0 and sort by date descending
-                const late = data.filter(h => h.minutes_retard > 0)
+                const todayStr = new Date().toISOString().split('T')[0];
+                // Filter where minutes_retard > 0 AND jour <= today
+                const late = data.filter(h => Number(h.minutes_retard) > 0 && h.jour <= todayStr)
                     .sort((a, b) => new Date(b.jour).getTime() - new Date(a.jour).getTime())
                     .slice(0, 4);
                 setRetards(late);

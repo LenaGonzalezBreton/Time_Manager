@@ -132,3 +132,114 @@ export async function deleteIndicateur(id: number) {
     const result = await repo().delete(id);
     if (!result.affected) throw { status: 404, message: "Indicateur introuvable" };
 }
+
+// ==================== STATISTIQUES ÉQUIPES ====================
+
+// Helper pour récupérer le dernier indicateur d'un utilisateur
+async function getLatestIndicateur(userId: number) {
+    // Trouver la cible
+    const cible = await cibleRepo().findOne({ where: { type_cible: "utilisateur", id_cible: userId } });
+    if (!cible) return null;
+
+    // Trouver le dernier indicateur
+    const indicateur = await repo().findOne({
+        where: { cible_indicateur: { id_cible_indicateur: cible.id_cible_indicateur } },
+        order: { date_periode: "DESC" }
+    });
+    return indicateur;
+}
+
+// Récupérer les stats détaillées des membres d'une équipe
+export async function getTeamUserStats(teamId: number) {
+    const { AppDataSource } = await import("../data-source.js");
+    const { Equipe } = await import("../entities/Equipe.js");
+
+    // Récupérer l'équipe et ses membres
+    const equipe = await AppDataSource.getRepository(Equipe).findOne({
+        where: { id_equipe: teamId },
+        relations: ['membres']
+    });
+
+    if (!equipe) throw { status: 404, message: "Équipe introuvable" };
+
+    // Pour chaque membre, récupérer ses dernières stats
+    const stats = await Promise.all(equipe.membres.map(async (membre) => {
+        const indicateur = await getLatestIndicateur(membre.id_utilisateur);
+        // Si pas d'indicateur, on renvoie une structure vide/par défaut
+        return {
+            utilisateur: {
+                id_utilisateur: membre.id_utilisateur,
+                nom: membre.nom,
+                prenom: membre.prenom,
+                email: membre.email
+            },
+            stats: indicateur || {
+                taux_presence: 0,
+                taux_retard: 0,
+                minutes_travaillees: 0,
+                minutes_retards: 0
+            }
+        };
+    }));
+
+    return stats;
+}
+
+// Récupérer les stats agrégées pour toutes les équipes
+export async function getAllTeamStats() {
+    const { AppDataSource } = await import("../data-source.js");
+    const { Equipe } = await import("../entities/Equipe.js");
+
+    const équipes = await AppDataSource.getRepository(Equipe).find({
+        relations: ['membres']
+    });
+
+    const teamStats = await Promise.all(équipes.map(async (equipe) => {
+        if (!equipe.membres || equipe.membres.length === 0) {
+            return {
+                id_equipe: equipe.id_equipe,
+                nom: equipe.nom,
+                stats: {
+                    taux_presence_moyen: 0,
+                    taux_retard_moyen: 0,
+                    heures_travaillees_total: 0
+                },
+                memberCount: 0
+            };
+        }
+
+        let totalPresence = 0;
+        let totalRetard = 0;
+        let totalMinutes = 0;
+        let count = 0;
+
+        for (const membre of equipe.membres) {
+            const ind = await getLatestIndicateur(membre.id_utilisateur);
+            if (ind) {
+                totalPresence += Number(ind.taux_presence || 0);
+                totalRetard += Number(ind.taux_retard || 0);
+                totalMinutes += Number(ind.minutes_travaillees || 0);
+                count++;
+            }
+        }
+
+        const stats = count === 0 ? {
+            taux_presence_moyen: 0,
+            taux_retard_moyen: 0,
+            heures_travaillees_total: 0
+        } : {
+            taux_presence_moyen: totalPresence / count,
+            taux_retard_moyen: totalRetard / count,
+            heures_travaillees_total: totalMinutes / 60
+        };
+
+        return {
+            id_equipe: equipe.id_equipe,
+            nom: equipe.nom,
+            stats,
+            memberCount: equipe.membres.length
+        };
+    }));
+
+    return teamStats;
+}

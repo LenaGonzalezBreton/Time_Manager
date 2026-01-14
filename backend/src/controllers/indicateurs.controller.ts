@@ -42,3 +42,24 @@ export async function deleteIndicateur(req: Request, res: Response, next: NextFu
         next(err);
     }
 }
+
+// GET /api/indicateurs/teams
+export async function getTeamsStats(req: Request, res: Response, next: NextFunction) {
+    try {
+        const stats = await svc.getAllTeamStats();
+        res.status(200).json(stats);
+    } catch (err) {
+        next(err);
+    }
+}
+
+// GET /api/indicateurs/teams/:id
+export async function getTeamDetailStats(req: Request, res: Response, next: NextFunction) {
+    try {
+        const teamId = Number(req.params.id);
+        const stats = await svc.getTeamUserStats(teamId);
+        res.status(200).json(stats);
+    } catch (err) {
+        next(err);
+    }
+}

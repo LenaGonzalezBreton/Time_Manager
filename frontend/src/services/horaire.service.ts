@@ -16,6 +16,14 @@ export interface Horaire {
     };
 }
 
+export interface ExpectedSchedule {
+    jour_semaine: string;
+    heure_arrivee: string | null;
+    heure_pause: string | null;
+    heure_depart: string | null;
+    jour_travail: boolean;
+}
+
 class HoraireService {
     private readonly endpoint = '/horaires';
 
@@ -25,6 +33,34 @@ class HoraireService {
 
     async getAll(): Promise<Horaire[]> {
         return apiService.get<Horaire[]>(this.endpoint);
+    }
+
+    // ==================== NOUVELLES MÉTHODES POUR LE TRACKING DE JOURNÉE ====================
+
+    // Récupère l'horaire du jour pour l'utilisateur connecté
+    async getTodayHoraire(): Promise<Horaire | null> {
+        return apiService.get<Horaire | null>(`${this.endpoint}/today`);
+    }
+
+    // Récupère les horaires prévus depuis le planning
+    async getExpectedSchedule(jour?: string): Promise<ExpectedSchedule | null> {
+        const params = jour ? `?jour=${jour}` : '';
+        return apiService.get<ExpectedSchedule | null>(`${this.endpoint}/expected-schedule${params}`);
+    }
+
+    // Démarre la journée de travail
+    async startWorkDay(): Promise<Horaire> {
+        return apiService.post<Horaire>(`${this.endpoint}/start-day`, {});
+    }
+
+    // Termine la journée de travail
+    async endWorkDay(): Promise<Horaire> {
+        return apiService.post<Horaire>(`${this.endpoint}/end-day`, {});
+    }
+
+    // Récupère les journées incomplètes
+    async getIncompleteDays(): Promise<Horaire[]> {
+        return apiService.get<Horaire[]>(`${this.endpoint}/incomplete`);
     }
 }
 

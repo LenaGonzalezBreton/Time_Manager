@@ -25,6 +25,10 @@ app.listen(port, () => console.log(`HTTP up on :${port}`));
                 console.log(`Connexion BDD, nouvelle tentative ${i + 1}/${maxRetries}...`);
                 await AppDataSource.initialize();
                 console.log("BDD connectée !");
+                // Assurer que les rôles existent
+                await import("./services/roles.service.js").then(m => m.ensureDefaultRoles());
+                // Assurer qu'un admin existe
+                await import("./services/utilisateurs.service.js").then(m => m.ensureDefaultAdmin());
             }
             return;
         } catch (err) {

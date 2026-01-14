@@ -4,9 +4,12 @@ import ProfilUtilisateur from './Components/ProfilUtilisateur';
 import UtilisateursPage from './Pages/Utilisateurs';
 import Dashboard_employe from './Pages/Dashboard_employé';
 import Teams from './Pages/Equipe';
+import GestionEquipes from './Pages/GestionEquipes';
 import CalendrierPage from './Pages/Calendrier';
 import ProtectedRoute from './Components/ProtectedRoute';
 import Statistiques from './Pages/Statistiques';
+import Parametres from './Pages/Parametres';
+import Historique from './Pages/Historique';
 
 // Le routeur gère les routes de l'application.
 const AppRouter = () => {
@@ -32,6 +35,11 @@ const AppRouter = () => {
                         <UtilisateursPage />
                     </ProtectedRoute>
                 } />
+                <Route path="/gestion-equipes" element={
+                    <ProtectedRoute requireManager={true}>
+                        <GestionEquipes />
+                    </ProtectedRoute>
+                } />
                 <Route path="/equipes" element={
                     <ProtectedRoute>
                         <Teams />
@@ -45,6 +53,16 @@ const AppRouter = () => {
                 <Route path="/statistiques" element={
                     <ProtectedRoute>
                         <Statistiques />
+                    </ProtectedRoute>
+                } />
+                <Route path="/parametres" element={
+                    <ProtectedRoute>
+                        <Parametres />
+                    </ProtectedRoute>
+                } />
+                <Route path="/historique" element={
+                    <ProtectedRoute requireManager={true}>
+                        <Historique />
                     </ProtectedRoute>
                 } />
 

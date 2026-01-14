@@ -2,7 +2,7 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 // @ts-ignore
 import logo from "../Images/Logo_mieux.png"
-import { House, Handshake, Calendar, ChartColumn, Settings, LogOut, Users } from "lucide-react";
+import { House, Handshake, Calendar, ChartColumn, Settings, LogOut, Users, UsersRound, History as HistoryIcon } from "lucide-react";
 
 const NavBar = () => {
     const { isManager, logout } = useAuth();
@@ -27,67 +27,133 @@ const NavBar = () => {
                 <img src={logo} className="w-32 mx-auto mb-10 filter drop-shadow-lg" alt="Logo" />
 
                 <div className="flex flex-col gap-2">
-                    <div>
-                        <Link
-                            to="/dashboard"
-                            className={`${linkBase} ${isActive('/dashboard') ? linkActive : linkInactive}`}
-                        >
-                            <House size={20} />
-                            <span>Dashboard</span>
-                        </Link>
-                    </div>
+                    {/* MENU MANAGER / ADMIN */}
+                    {isManager ? (
+                        <>
+                            {/* ADMINISTRATION */}
+                            <div className="mb-2">
+                                <p className="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                                    Administration
+                                </p>
+                                <div className="flex flex-col gap-1">
+                                    <Link
+                                        to="/utilisateurs"
+                                        className={`${linkBase} ${isActive('/utilisateurs') ? linkActive : linkInactive}`}
+                                    >
+                                        <Users size={20} />
+                                        <span>Utilisateurs</span>
+                                    </Link>
 
-                    {isManager && (
-                        <div>
+                                    <Link
+                                        to="/gestion-equipes"
+                                        className={`${linkBase} ${isActive('/gestion-equipes') ? linkActive : linkInactive}`}
+                                    >
+                                        <UsersRound size={20} />
+                                        <span>Équipes</span>
+                                    </Link>
+
+                                    <Link
+                                        to="/historique"
+                                        className={`${linkBase} ${isActive('/historique') ? linkActive : linkInactive}`}
+                                    >
+                                        <HistoryIcon size={20} />
+                                        <span>Historique</span>
+                                    </Link>
+                                </div>
+                            </div>
+
+                            {/* INFORMATIONS */}
+                            <div className="mb-2">
+                                <p className="px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                                    Informations
+                                </p>
+                                <div className="flex flex-col gap-1">
+                                    <Link
+                                        to="/dashboard"
+                                        className={`${linkBase} ${isActive('/dashboard') ? linkActive : linkInactive}`}
+                                    >
+                                        <House size={20} />
+                                        <span>Dashboard</span>
+                                    </Link>
+
+                                    <Link
+                                        to="/equipes"
+                                        className={`${linkBase} ${isActive('/equipes') ? linkActive : linkInactive}`}
+                                    >
+                                        <Handshake size={20} />
+                                        <span>Mes équipes</span>
+                                    </Link>
+
+                                    <Link
+                                        to="/calendrier"
+                                        className={`${linkBase} ${isActive('/calendrier') ? linkActive : linkInactive}`}
+                                    >
+                                        <Calendar size={20} />
+                                        <span>Calendrier</span>
+                                    </Link>
+
+                                    <Link
+                                        to="/statistiques"
+                                        className={`${linkBase} ${isActive('/statistiques') ? linkActive : linkInactive}`}
+                                    >
+                                        <ChartColumn size={20} />
+                                        <span>Statistiques</span>
+                                    </Link>
+
+                                    <Link
+                                        to="/parametres"
+                                        className={`${linkBase} ${linkInactive}`}
+                                    >
+                                        <Settings size={20} />
+                                        <span>Paramètres</span>
+                                    </Link>
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        /* MENU EMPLOYÉ (Liste simple) */
+                        <>
                             <Link
-                                to="/utilisateurs"
-                                className={`${linkBase} ${isActive('/utilisateurs') ? linkActive : linkInactive}`}
+                                to="/dashboard"
+                                className={`${linkBase} ${isActive('/dashboard') ? linkActive : linkInactive}`}
                             >
-                                <Users size={20} />
-                                <span>Utilisateurs</span>
+                                <House size={20} />
+                                <span>Dashboard</span>
                             </Link>
-                        </div>
+
+                            <Link
+                                to="/equipes"
+                                className={`${linkBase} ${isActive('/equipes') ? linkActive : linkInactive}`}
+                            >
+                                <Handshake size={20} />
+                                <span>Mon équipe</span>
+                            </Link>
+
+                            <Link
+                                to="/calendrier"
+                                className={`${linkBase} ${isActive('/calendrier') ? linkActive : linkInactive}`}
+                            >
+                                <Calendar size={20} />
+                                <span>Calendrier</span>
+                            </Link>
+
+                            <Link
+                                to="/statistiques"
+                                className={`${linkBase} ${isActive('/statistiques') ? linkActive : linkInactive}`}
+                            >
+                                <ChartColumn size={20} />
+                                <span>Statistiques</span>
+                            </Link>
+
+                            <Link
+                                to="/parametres"
+                                className={`${linkBase} ${linkInactive}`}
+                            >
+                                <Settings size={20} />
+                                <span>Paramètres</span>
+                            </Link>
+                        </>
                     )}
-
-                    <div>
-                        <Link
-                            to="/equipes"
-                            className={`${linkBase} ${isActive('/equipes') ? linkActive : linkInactive}`}
-                        >
-                            <Handshake size={20} />
-                            <span>Équipe</span>
-                        </Link>
-                    </div>
-
-                    <div>
-                        <Link
-                            to="/calendrier"
-                            className={`${linkBase} ${isActive('/calendrier') ? linkActive : linkInactive}`}
-                        >
-                            <Calendar size={20} />
-                            <span>Calendrier</span>
-                        </Link>
-                    </div>
-
-                    <div>
-                        <Link
-                            to="/statistiques"
-                            className={`${linkBase} ${isActive('/statistiques') ? linkActive : linkInactive}`}
-                        >
-                            <ChartColumn size={20} />
-                            <span>Statistiques</span>
-                        </Link>
-                    </div>
-
-                    <div>
-                        <Link
-                            to="/parametres"
-                            className={`${linkBase} ${linkInactive}`}
-                        >
-                            <Settings size={20} />
-                            <span>Paramètres</span>
-                        </Link>
-                    </div>
                 </div>
             </div>
 

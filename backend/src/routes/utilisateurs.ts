@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUtilisateurs, postUtilisateur, putUtilisateur, deleteUtilisateur, getAbsencesByUser, getIndicateursByUser } from "../controllers/utilisateurs.controller.js";
+import { getUtilisateurs, postUtilisateur, putUtilisateur, deleteUtilisateur, getAbsencesByUser, getIndicateursByUser, updateUtilisateurByManager, updateUtilisateurSelf, updatePassword } from "../controllers/utilisateurs.controller.js";
 import { getHorairesByUser } from "../controllers/horaires.controller.js";
 
 const router = Router();
@@ -59,10 +59,54 @@ router.post("/", postUtilisateur);
 
 /**
  * @openapi
+ * /api/utilisateurs/me:
+ *   put:
+ *     tags: [Utilisateurs]
+ *     summary: Modifier ses propres informations
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email: { type: string, example: "nouveau@mail.com" }
+ *               telephone: { type: string, example: "0612345678", nullable: true }
+ *     responses:
+ *       200: { description: Informations mises à jour }
+ *       401: { description: Non authentifié }
+ *       409: { description: Email déjà utilisé }
+ */
+router.put("/me", updateUtilisateurSelf);
+
+/**
+ * @openapi
+ * /api/utilisateurs/me/password:
+ *   put:
+ *     tags: [Utilisateurs]
+ *     summary: Changer son mot de passe
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [oldPassword, newPassword]
+ *             properties:
+ *               oldPassword: { type: string, example: "ancien_mdp" }
+ *               newPassword: { type: string, example: "nouveau_mdp" }
+ *     responses:
+ *       200: { description: Mot de passe modifié }
+ *       401: { description: Ancien mot de passe incorrect }
+ */
+router.put("/me/password", updatePassword);
+
+/**
+ * @openapi
  * /api/utilisateurs/{id}:
  *   put:
  *     tags: [Utilisateurs]
- *     summary: Met à jour un utilisateur
+ *     summary: Modifier un utilisateur (Manager uniquement, ne peut pas modifier un autre manager)
  *     parameters:
  *       - in: path
  *         name: id
@@ -78,14 +122,15 @@ router.post("/", postUtilisateur);
  *               nom: { type: string, example: "DUPONT" }
  *               prenom: { type: string, example: "Jean" }
  *               email: { type: string, example: "example@mail.com" }
- *               mot_de_passe: { type: string, example: "azerty" }
- *               id_role: { type: integer, example: 1 }
+ *               telephone: { type: string, example: "0612345678", nullable: true }
+ *               id_role: { type: integer, example: 2 }
  *     responses:
  *       200: { description: Utilisateur mis à jour }
+ *       403: { description: Accès refusé (non manager ou tentative de modifier un manager) }
  *       404: { description: Introuvable }
- *       409: { description: Doublon }
+ *       409: { description: Email déjà utilisé }
  */
-router.put("/:id", putUtilisateur);
+router.put("/:id", updateUtilisateurByManager);
 
 /**
  * @openapi

@@ -5,9 +5,22 @@ import apiRouter from "./routes/index.js";
 
 // Création de l'application Express
 const app = express();
-// Middleware
-const allowedOrigin = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
-app.use(cors({ origin: allowedOrigin }));
+// Middleware - Support pour les deux ports de dev (3000 et 5173)
+const allowedOrigins = [
+    process.env.FRONTEND_ORIGIN || "http://localhost:3000",
+    "http://localhost:5173"
+];
+app.use(cors({
+    origin: (origin, callback) => {
+        // Autorise les requêtes sans origin (comme Postman) ou les origins dans la liste
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+}));
 app.use(express.json());
 
 // Setup de swagger

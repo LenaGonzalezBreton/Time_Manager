@@ -29,6 +29,23 @@ class UtilisateursService {
   async delete(id: number): Promise<void> {
     return apiService.delete<void>(`${this.endpoint}/${id}`);
   }
+
+  // ==================== NOUVELLES MÉTHODES POUR LA GESTION DES UTILISATEURS ====================
+
+  // PUT /api/utilisateurs/:id - Mise à jour par manager
+  async updateByManager(id: number, data: { nom?: string; prenom?: string; email?: string; telephone?: string | null; id_role?: number }): Promise<Utilisateur> {
+    return apiService.put<Utilisateur>(`${this.endpoint}/${id}`, data);
+  }
+
+  // PUT /api/utilisateurs/me - Auto-modification
+  async updateSelf(data: { email?: string; telephone?: string | null }): Promise<Utilisateur> {
+    return apiService.put<Utilisateur>(`${this.endpoint}/me`, data);
+  }
+
+  // PUT /api/utilisateurs/me/password - Changement de mot de passe
+  async updatePassword(oldPassword: string, newPassword: string): Promise<{ message: string }> {
+    return apiService.put<{ message: string }>(`${this.endpoint}/me/password`, { oldPassword, newPassword });
+  }
 }
 
 // Export d'une instance unique du service

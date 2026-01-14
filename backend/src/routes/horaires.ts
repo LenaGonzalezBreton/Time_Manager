@@ -1,6 +1,6 @@
 // backend/src/routes/horaires.ts
 import { Router } from "express";
-import { getHoraires, postHoraire, putHoraire, deleteHoraire } from "../controllers/horaires.controller.js";
+import { getHoraires, postHoraire, putHoraire, deleteHoraire, getTodayHoraire, getExpectedSchedule, startWorkDay, endWorkDay, getIncompleteDays } from "../controllers/horaires.controller.js";
 
 const router = Router();
 
@@ -16,6 +16,108 @@ const router = Router();
  *         description: OK
  */
 router.get("/", getHoraires);
+
+// ==================== ROUTES SPÉCIFIQUES (AVANT /:id) ====================
+
+/**
+ * @openapi
+ * /api/horaires/today:
+ *   get:
+ *     tags: [Horaires]
+ *     summary: Récupère l'horaire du jour pour l'utilisateur connecté
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Horaire du jour (ou null si aucun)
+ *       401:
+ *         description: Non authentifié
+ */
+router.get("/today", getTodayHoraire);
+
+/**
+ * @openapi
+ * /api/horaires/expected-schedule:
+ *   get:
+ *     tags: [Horaires]
+ *     summary: Récupère les horaires prévus depuis le planning du rôle de l'utilisateur
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: jour
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Date au format YYYY-MM-DD (optionnel, par défaut aujourd'hui)
+ *         example: "2026-01-12"
+ *     responses:
+ *       200:
+ *         description: Horaires prévus du planning
+ *       401:
+ *         description: Non authentifié
+ *       404:
+ *         description: Utilisateur ou rôle introuvable
+ */
+router.get("/expected-schedule", getExpectedSchedule);
+
+/**
+ * @openapi
+ * /api/horaires/incomplete:
+ *   get:
+ *     tags: [Horaires]
+ *     summary: Récupère les journées incomplètes (non débutées) des 30 derniers jours
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Liste des journées incomplètes
+ *       401:
+ *         description: Non authentifié
+ */
+router.get("/incomplete", getIncompleteDays);
+
+/**
+ * @openapi
+ * /api/horaires/start-day:
+ *   post:
+ *     tags: [Horaires]
+ *     summary: Démarre la journée de travail
+ *     description: Enregistre l'heure d'arrivée et calcule automatiquement le retard si applicable
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Horaire créé ou mis à jour avec l'heure d'arrivée
+ *       401:
+ *         description: Non authentifié
+ *       404:
+ *         description: Utilisateur introuvable
+ */
+router.post("/start-day", startWorkDay);
+
+/**
+ * @openapi
+ * /api/horaires/end-day:
+ *   post:
+ *     tags: [Horaires]
+ *     summary: Termine la journée de travail
+ *     description: Enregistre l'heure de départ et calcule automatiquement les minutes travaillées
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Horaire mis à jour avec l'heure de départ et les minutes travaillées
+ *       400:
+ *         description: L'heure d'arrivée n'est pas enregistrée
+ *       401:
+ *         description: Non authentifié
+ *       404:
+ *         description: Aucune journée de travail n'a été débutée aujourd'hui
+ */
+router.post("/end-day", endWorkDay);
+
+// ==================== ROUTES GÉNÉRIQUES (AVEC /:id) ====================
 
 /**
  * @openapi

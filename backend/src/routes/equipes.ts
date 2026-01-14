@@ -1,6 +1,6 @@
 // backend/src/routes/roles.ts
 import { Router } from "express";
-import { getEquipes, postEquipe, putEquipe, deleteEquipe, getEquipe } from "../controllers/equipes.controller.js";
+import { getEquipes, postEquipe, putEquipe, deleteEquipe, getEquipe, addMember, removeMember } from "../controllers/equipes.controller.js";
 
 const router = Router();
 
@@ -107,5 +107,54 @@ router.put("/:id", putEquipe);
  *       404: { description: Introuvable }
  */
 router.delete("/:id", deleteEquipe);
+
+/**
+ * @openapi
+ * /api/equipes/{id}/membres:
+ *   post:
+ *     tags: [Equipes]
+ *     summary: Ajouter un membre à une équipe (ne peut pas ajouter un manager)
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: integer }
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [id_utilisateur]
+ *             properties:
+ *               id_utilisateur: { type: integer, example: 5 }
+ *     responses:
+ *       200: { description: Membre ajouté }
+ *       403: { description: Impossible d'ajouter un manager }
+ *       404: { description: Équipe ou utilisateur introuvable }
+ *       409: { description: Utilisateur déjà membre }
+ */
+router.post("/:id/membres", addMember);
+
+/**
+ * @openapi
+ * /api/equipes/{id}/membres/{userId}:
+ *   delete:
+ *     tags: [Equipes]
+ *     summary: Retirer un membre d'une équipe
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: integer }
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema: { type: integer }
+ *     responses:
+ *       200: { description: Membre retiré }
+ *       404: { description: Équipe ou utilisateur introuvable }
+ */
+router.delete("/:id/membres/:userId", removeMember);
 
 export default router;

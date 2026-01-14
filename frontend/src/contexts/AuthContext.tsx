@@ -9,8 +9,10 @@ interface AuthContextType {
     login: (credentials: LoginCredentials) => Promise<void>;
     register: (data: RegisterData) => Promise<User>;
     logout: () => void;
+    updateUser: (updatedUser: Partial<User>) => void;
     isAuthenticated: boolean;
     isManager: boolean;
+    isAdmin: boolean;
 }
 
 // Créer le contexte
@@ -83,14 +85,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(null);
     };
 
+    /**
+     * Mettre à jour les données de l'utilisateur
+     */
+    const updateUser = (updatedUser: Partial<User>) => {
+        if (user) {
+            setUser({ ...user, ...updatedUser });
+        }
+    };
+
     const value: AuthContextType = {
         user,
         loading,
         login,
         register,
         logout,
+        updateUser,
         isAuthenticated: !!user,
-        isManager: user?.role.toLowerCase() === 'manager',
+        isManager: user?.role.toLowerCase() === 'manager' || user?.role.toLowerCase() === 'administrateur',
+        isAdmin: user?.role.toLowerCase() === 'administrateur',
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

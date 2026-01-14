@@ -18,7 +18,7 @@ const Stats = () => {
     }, [user]);
 
     return (
-        <div className="modern-card p-6 flex flex-col gap-4 w-full md:w-auto min-w-[280px]">
+        <div className="modern-card p-6 flex flex-col gap-4 w-full md:w-auto min-w-[340px]">
             <div className="flex items-center gap-3 border-b border-slate-200 pb-3">
                 <TrendingUp className="text-blue-600" size={24} />
                 <h3 className="text-xl font-bold text-slate-900">Statistiques</h3>

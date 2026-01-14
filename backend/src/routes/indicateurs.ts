@@ -1,6 +1,6 @@
 // backend/src/routes/roles.ts
 import { Router } from "express";
-import { getIndicateurs, postIndicateur, putIndicateur, deleteIndicateur } from "../controllers/indicateurs.controller.js";
+import { getIndicateurs, postIndicateur, putIndicateur, deleteIndicateur, getTeamsStats, getTeamDetailStats } from "../controllers/indicateurs.controller.js";
 
 const router = Router();
 
@@ -15,6 +15,33 @@ const router = Router();
  *         description: OK
  */
 router.get("/", getIndicateurs);
+
+/**
+ * @openapi
+ * /api/indicateurs/teams:
+ *   get:
+ *     tags: [Indicateurs]
+ *     summary: Statistiques agrégées par équipe
+ *     responses:
+ *       200: { description: OK }
+ */
+router.get("/teams", getTeamsStats);
+
+/**
+ * @openapi
+ * /api/indicateurs/teams/{id}:
+ *   get:
+ *     tags: [Indicateurs]
+ *     summary: Statistiques détaillées des membres d'une équipe
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema: { type: integer }
+ *     responses:
+ *       200: { description: OK }
+ */
+router.get("/teams/:id", getTeamDetailStats);
 
 /**
  * @openapi

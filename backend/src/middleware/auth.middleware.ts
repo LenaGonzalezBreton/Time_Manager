@@ -41,7 +41,9 @@ export function requireRole(...allowedRoles: string[]) {
         }
 
         const userRole = req.user.role.toLowerCase();
-        const hasPermission = allowedRoles.some(role => role.toLowerCase() === userRole);
+        // L'administrateur a accès à tout
+        const isAdmin = userRole === 'administrateur';
+        const hasPermission = isAdmin || allowedRoles.some(role => role.toLowerCase() === userRole);
 
         if (!hasPermission) {
             return res.status(403).json({
@@ -71,9 +73,11 @@ export function requireOwnerOrManager(req: Request, res: Response, next: NextFun
 
     const userId = Number(req.params.id);
     const isOwner = req.user.id_utilisateur === userId;
-    const isManager = req.user.role.toLowerCase() === "manager";
+    const userRole = req.user.role.toLowerCase();
+    const isManager = userRole === "manager";
+    const isAdmin = userRole === "administrateur";
 
-    if (!isOwner && !isManager) {
+    if (!isOwner && !isManager && !isAdmin) {
         return res.status(403).json({
             message: "Accès refusé - Vous ne pouvez accéder qu'à vos propres données"
         });
